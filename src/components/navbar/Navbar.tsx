@@ -19,8 +19,8 @@ const Navbar = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
   return (
-    <div className="w-full  sticky top-0 left-0 right-0 shadow-lg z-50">
-      <div className="max-w-7xl mx-auto px-5  bg-surface-50/50 backdrop-blur-2xl ">
+    <div className="w-full  sticky top-0 left-0 right-0 shadow-lg z-50 bg-surface-50/80 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-5   ">
         <nav className=" flex items-center justify-between  lg:px-0 h-20">
           <Logo />
           {/* desktop nav links  */}
