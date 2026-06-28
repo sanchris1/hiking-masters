@@ -9,7 +9,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
 
-export const myNavLinks = ["Explore", "About us", "Contact"];
+export const myNavLinks = ["Explore", "About", "Contact"];
 const Navbar = () => {
   const user = null;
 
@@ -29,11 +29,13 @@ const Navbar = () => {
               <Link
                 href={link.toLowerCase().replace(/\s+/g, "-")}
                 key={link}
-                className={`${pathname.includes(link.toLowerCase()) ? "text-accent" : "text-primary"} text-[15px] font-semibold  relative `}
+                className={`${pathname.includes(link.toLowerCase()) ? "text-accent" : "text-primary"} hover:text-accent text-[15px] font-semibold  relative `}
               >
                 {link}
 
-                <span className="absolute w-full h-0.5 bg-accent bottom-0 left-0 right-0 rounded-full" />
+                <span
+                  className={`${pathname.includes(link.toLowerCase()) ? "w-full" : " w-0"}  absolute  h-0.5 bg-accent bottom-0 left-0 right-0 rounded-full`}
+                />
               </Link>
             ))}
           </div>
