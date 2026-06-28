@@ -1,3 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #0f3d2e; /* buttons, main actions */
+  --color-secondary: #2e5e4e; /* hover, highlights */
 
+  --color-accent: #b45309;
+
+  /* Text */
+  --color-text-accent: #061b0e; /* deep forest green (main text) */
+
+  /* Surfaces */
+  --color-background: #f6faf7; /* soft green-white page bg */
+  --color-card: #edf4ef; /* cards, sections */
+  --color-border: #d6e2da; /* soft natural borders */
+
+  /* Soft UI states (like green-50 system) */
+  --color-surface-50: #f6faf7; /* page background */
+  --color-surface-100: #edf4ef; /* cards */
+  --color-surface-200: #dde9e1; /* elevated sections */
+}
