@@ -1,4 +1,7 @@
+"use client";
+
 import { UpcomingExpedition } from "@/types/types";
+import { useRouter } from "next/navigation";
 import { BiUser } from "react-icons/bi";
 
 const UpcomingExpeditionCard = ({
@@ -6,6 +9,7 @@ const UpcomingExpeditionCard = ({
 }: {
   expedition: UpcomingExpedition;
 }) => {
+  const router = useRouter();
   const date = expedition.departureDate;
   const formattedDate = new Date(date).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -30,7 +34,10 @@ const UpcomingExpeditionCard = ({
         <div className="w-0.5 flex-1 bg-green-700 mt-2" />
       </div>
 
-      <div className="bg-surface-50/30 backdrop-blur-sm border border-border rounded-xl p-2 flex items-center justify-between w-full gap-2">
+      <div
+        onClick={() => router.push(`/booking/${expedition.id}`)}
+        className="bg-surface-50/30 backdrop-blur-sm border border-border rounded-xl p-2 flex items-center justify-between w-full gap-2"
+      >
         <div className="flex flex-col gap-3">
           <span className="text-xs font-medium text-orange-600">
             {formattedDate}

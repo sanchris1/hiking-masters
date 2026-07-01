@@ -1,4 +1,4 @@
-import { dummyFeaturedHikes } from "@/items/explore";
+import { dummyUpcomingExpeditions } from "@/items/experditions";
 import ExploreFeaturedAdventuresCard from "../cards/ExploreFeaturedAdventuresCard";
 
 const ExploreFeaturedAdventures = () => {
@@ -16,7 +16,7 @@ const ExploreFeaturedAdventures = () => {
         </div>
         {/* adventures arrays of cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-          {dummyFeaturedHikes.slice(0, 6).map((hike) => (
+          {dummyUpcomingExpeditions.slice(0, 6).map((hike) => (
             <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
           ))}
         </div>

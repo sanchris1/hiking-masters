@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { dummyFeaturedHikes } from "@/items/explore";
-import { FeaturedHike } from "@/types/types";
+import { dummyUpcomingExpeditions } from "@/items/experditions";
+import { UpcomingExpedition } from "@/types/types";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,12 +15,13 @@ const ExploreDetailsPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [exploreEventDetails, setExploreEventDetails] =
-    useState<FeaturedHike | null>(null);
+    useState<UpcomingExpedition | null>(null);
 
   useEffect(() => {
     setLoading(true);
     const hike =
-      dummyFeaturedHikes.find((hike) => hike.id === params.exploreId) ?? null;
+      dummyUpcomingExpeditions.find((hike) => hike.id === params.exploreId) ??
+      null;
 
     setExploreEventDetails(hike);
     setLoading(false);
@@ -48,7 +49,7 @@ const ExploreDetailsPage = () => {
         {/* content */}
         <div className="flex flex-col lg:flex-row gap-3 items-center ">
           {/* left  */}
-          <div className="w-full h-full shadow-2xl rounded-2xl lg:w-4/7 overflow-hidden space-y-8 hover:scale-x-95 transition-all duration-700 hover:shadow-xl">
+          <div className="w-full h-full shadow-2xl rounded-2xl lg:w-4/7 overflow-hidden space-y-8 hover:scale-95 transition-all duration-700 hover:shadow-xl">
             <div className="relative w-full  h-96 lg:h-120 overflow-hidden ">
               <Image
                 alt={exploreEventDetails.title}
@@ -90,9 +91,29 @@ const ExploreDetailsPage = () => {
               </p>
               <div className="flex justify-between  px-12  mb-5">
                 <div className="space-y-1 bg-secondary/30 px-3 py-1 rounded-br-2xl rounded-tl-2xl">
-                  <span className="text-xs text-secondary">Difficulty</span>
+                  <span className="text-xs text-secondary">
+                    Status for bookng
+                  </span>
                   <p className="text-sm font-semibold text-primary text-center">
-                    {exploreEventDetails.difficulty}
+                    {exploreEventDetails.status}
+                  </p>
+                </div>
+                <div className="space-y-1 bg-accent/30 px-3 py-1 rounded-br-2xl rounded-tl-2xl">
+                  <span className="text-xs text-secondary ">Slots left</span>
+                  <p className="text-sm font-semibold text-primary text-center">
+                    {exploreEventDetails.slotsLeft} out of{" "}
+                    {exploreEventDetails.capacity}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-between  px-12  mb-5">
+                <div className="space-y-1 bg-secondary/30 px-3 py-1 rounded-br-2xl rounded-tl-2xl">
+                  <span className="text-xs text-secondary">Departure date</span>
+                  <p className="text-sm font-semibold text-primary text-center">
+                    {new Date(exploreEventDetails.departureDate).toLocaleString(
+                      "en-GB",
+                      { day: "numeric", month: "long", year: "numeric" },
+                    )}
                   </p>
                 </div>
                 <div className="space-y-1 bg-accent/30 px-3 py-1 rounded-br-2xl rounded-tl-2xl">
@@ -107,7 +128,7 @@ const ExploreDetailsPage = () => {
               <div className="space-y-2 w-full bg-primary/10 p-2  rounded-2xl">
                 <span className="text-sm text-secondary ">Price</span>
                 <p className="text-2xl font-semibold text-primary ">
-                  KSH: {exploreEventDetails.price}
+                  KSH: {exploreEventDetails.price.toLocaleString()}
                   <span className="text-secondary font-medium text-sm">
                     (transport to and fro included)
                   </span>

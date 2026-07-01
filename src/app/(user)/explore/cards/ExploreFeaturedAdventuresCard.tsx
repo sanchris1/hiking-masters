@@ -62,7 +62,10 @@ const ExploreFeaturedAdventuresCard = ({
           </p>
         </div>
 
-        <button className="w-full py-2 rounded-xl border-secondary  bg-secondary/20 text-sm font-medium hover:bg-secondary/15 border-2 cursor-pointer transition duration-500 text-primary">
+        <button
+          className="w-full py-2 rounded-xl border-secondary  bg-secondary/20 text-sm font-medium hover:bg-secondary/15 border-2 cursor-pointer transition duration-500 text-primary"
+          onClick={() => router.push(`/booking/${hike.id}`)}
+        >
           Book now
         </button>
       </div>

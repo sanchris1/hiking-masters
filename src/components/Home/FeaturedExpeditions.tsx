@@ -1,6 +1,6 @@
 import Button from "@/app/ui/Button";
 import ExploreFeaturedAdventuresCard from "@/app/(user)/explore/cards/ExploreFeaturedAdventuresCard";
-import { dummyFeaturedHikes } from "@/items/explore";
+import { dummyUpcomingExpeditions } from "@/items/experditions";
 
 const FeaturedExpeditions = () => {
   return (
@@ -22,8 +22,8 @@ const FeaturedExpeditions = () => {
         </div>
 
         {/* the expeditions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-          {dummyFeaturedHikes.map((hike) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-6">
+          {dummyUpcomingExpeditions.map((hike) => (
             <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
           ))}
         </div>

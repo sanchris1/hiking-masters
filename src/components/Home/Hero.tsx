@@ -1,7 +1,12 @@
+"use client";
+
 import Button from "@/app/ui/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
+
   return (
     <section className="relative w-full h-screen ">
       <Image
@@ -33,8 +38,18 @@ const Hero = () => {
           {/* buttons */}
 
           <div className="flex items-center gap-5 lg:gap-8">
-            <Button className="">Upcoming hikes</Button>
-            <Button className="bg-surface-200/10 border border-surface-50/30  backdrop-blur-3xl">
+            <Button
+              className=""
+              type="button"
+              onClick={() => router.push("/explore")}
+            >
+              Upcoming hikes
+            </Button>
+            <Button
+              onClick={() => router.push(`/booking/${"no-hike"}`)}
+              type="button"
+              className="bg-surface-200/10 border border-surface-50/30  backdrop-blur-3xl"
+            >
               Book your space
             </Button>
           </div>

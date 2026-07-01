@@ -6,23 +6,9 @@ export type HikingTour = {
   description: string;
 };
 
-export interface FeaturedHike {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  difficulty: "Easy" | "Beginner" | "Intermediate" | "Advanced";
-  duration: string;
-  price: number;
-  rating: number;
-  location: string;
-  distanceFromNairobi: string;
-}
-
 export interface UpcomingExpedition {
   id: string;
   title: string;
-  destination: string;
   image: string;
   departureDate: string;
   returnDate: string;
@@ -35,4 +21,7 @@ export interface UpcomingExpedition {
   guide: string;
   status: "Open" | "Almost Full" | "Limited" | "Sold Out";
   description: string;
+  distanceFromNairobi: string;
+  rating: number;
+  location: string;
 }
