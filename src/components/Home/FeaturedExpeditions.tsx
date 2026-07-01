@@ -18,7 +18,7 @@ const FeaturedExpeditions = () => {
               for intimacy and safety.
             </p>
           </div>
-          <Button>View all the expeditions</Button>
+          <Button type="button">View all the expeditions</Button>
         </div>
 
         {/* the expeditions */}
