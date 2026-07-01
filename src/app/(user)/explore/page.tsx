@@ -1,5 +1,6 @@
 import ExploreFeaturedAdventures from "./components/ExploreFeaturedAdventures";
 import ExploreHero from "./components/Hero";
+import UpcomingExpeditions from "./components/UpcomingExpeditions";
 import VisitAreasComponent from "./components/VisitAreas";
 
 const ExplorePage = () => {
@@ -8,6 +9,7 @@ const ExplorePage = () => {
       <ExploreHero />
       <VisitAreasComponent />
       <ExploreFeaturedAdventures />
+      <UpcomingExpeditions />
     </div>
   );
 };

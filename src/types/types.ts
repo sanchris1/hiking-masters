@@ -18,3 +18,21 @@ export interface FeaturedHike {
   location: string;
   distanceFromNairobi: string;
 }
+
+export interface UpcomingExpedition {
+  id: string;
+  title: string;
+  destination: string;
+  image: string;
+  departureDate: string;
+  returnDate: string;
+  duration: string;
+  difficulty: "Easy" | "Beginner" | "Intermediate" | "Advanced";
+  price: number;
+  slotsLeft: number;
+  capacity: number;
+  meetingPoint: string;
+  guide: string;
+  status: "Open" | "Almost Full" | "Limited" | "Sold Out";
+  description: string;
+}

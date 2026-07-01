@@ -11,7 +11,7 @@ const ExploreFeaturedAdventuresCard = ({
   hike,
 }: ExploreFeaturedAdventuresCardProps) => {
   return (
-    <div className=" shadow-lg rounded-2xl  ">
+    <div className=" shadow-[4px_4px_12px_rgba(0,0,0,0.3)] rounded-2xl  overflow-hidden">
       {/* top for the image */}
       <div className="relative w-full h-80 overflow-hidden">
         <Image
@@ -23,7 +23,7 @@ const ExploreFeaturedAdventuresCard = ({
         <div className="absolute top-5  left-0 right-0 flex items-center justify-between px-5">
           {/* difficulty */}
           <span
-            className={` ${hike.difficulty.toLowerCase() === "easy" ? "bg-surface-200/50 border border-border " : hike.difficulty.toLowerCase() === "beginner" ? "bg-primary" : hike.difficulty.toLowerCase() === "intermediate" ? "bg-orange-600" : "bg-red-700"} rounded-full text-surface-200  py-1  text-xs font-semibold px-3`}
+            className={` ${hike.difficulty.toLowerCase() === "easy" ? "bg-surface-100/50 backdrop-blur-xl border border-border " : hike.difficulty.toLowerCase() === "beginner" ? "bg-primary" : hike.difficulty.toLowerCase() === "intermediate" ? "bg-orange-600" : "bg-red-700"} rounded-full text-surface-200  py-1  text-xs font-semibold px-3`}
           >
             {hike.difficulty}
           </span>
