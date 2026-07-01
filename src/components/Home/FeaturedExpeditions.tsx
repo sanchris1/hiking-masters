@@ -1,6 +1,6 @@
 import Button from "@/app/ui/Button";
-import { hikingTours } from "@/items/featured";
-import FeaturedHikesCard from "../hikes/FeaturedHikesCard";
+import ExploreFeaturedAdventuresCard from "@/app/(user)/explore/cards/ExploreFeaturedAdventuresCard";
+import { dummyFeaturedHikes } from "@/items/explore";
 
 const FeaturedExpeditions = () => {
   return (
@@ -22,16 +22,9 @@ const FeaturedExpeditions = () => {
         </div>
 
         {/* the expeditions */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-          {hikingTours.map((tour) => (
-            <FeaturedHikesCard
-              key={tour.id}
-              id={tour.id}
-              image={tour.image}
-              title={tour.title}
-              description={tour.description}
-              category={tour.category}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
+          {dummyFeaturedHikes.map((hike) => (
+            <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
           ))}
         </div>
       </div>

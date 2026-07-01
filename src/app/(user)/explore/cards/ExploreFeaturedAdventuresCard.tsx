@@ -1,5 +1,8 @@
+"use client";
+
 import { FeaturedHike } from "@/types/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { BiHeart, BiMoney, BiTimer } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
 
@@ -10,10 +13,15 @@ interface ExploreFeaturedAdventuresCardProps {
 const ExploreFeaturedAdventuresCard = ({
   hike,
 }: ExploreFeaturedAdventuresCardProps) => {
+  const router = useRouter();
+
   return (
     <div className=" shadow-[4px_4px_12px_rgba(0,0,0,0.3)] rounded-2xl  overflow-hidden">
       {/* top for the image */}
-      <div className="relative w-full h-80 overflow-hidden">
+      <div
+        className="relative w-full h-80 overflow-hidden"
+        onClick={() => router.push(`/explore/${hike.id}`)}
+      >
         <Image
           alt={hike.title}
           src={hike.image}

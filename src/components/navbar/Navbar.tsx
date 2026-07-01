@@ -27,7 +27,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-8 ">
             {myNavLinks.map((link) => (
               <Link
-                href={link.toLowerCase().replace(/\s+/g, "-")}
+                href={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
                 key={link}
                 className={`${pathname.includes(link.toLowerCase()) ? "text-accent" : "text-primary"} hover:text-accent text-[15px] font-semibold  relative `}
               >
@@ -41,7 +41,11 @@ const Navbar = () => {
           </div>
           {/* cta button */}
           <div className="">
-            {user ? <Button>My Trips</Button> : <Button>Login</Button>}
+            {user ? (
+              <Button type="button">My Trips</Button>
+            ) : (
+              <Button type="button">Login</Button>
+            )}
           </div>
 
           {/* phone nav button */}

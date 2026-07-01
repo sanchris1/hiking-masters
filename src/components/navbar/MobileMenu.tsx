@@ -17,7 +17,7 @@ const MobileMenu = ({
           {myNavLinks.map((link) => (
             <Link
               onClick={() => setOpenMobileMenu(false)}
-              href={link.toLowerCase().replace(/\s+/g, "-")}
+              href={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
               key={link}
               className={`text-primary text-lg font-semibold    `}
             >
