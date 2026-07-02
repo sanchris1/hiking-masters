@@ -1,19 +1,28 @@
 "use client";
 
-import { FeaturedHike } from "@/types/types";
+import { UpcomingExpedition } from "@/types/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BiHeart, BiMoney, BiTimer } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
 
 interface ExploreFeaturedAdventuresCardProps {
-  hike: FeaturedHike;
+  hike: UpcomingExpedition;
 }
 
 const ExploreFeaturedAdventuresCard = ({
   hike,
 }: ExploreFeaturedAdventuresCardProps) => {
   const router = useRouter();
+
+  function getHikeTime(date: string) {
+    const today = new Date().getTime();
+    const departureDate = new Date(date).getTime();
+
+    const remainingDays = departureDate - today;
+
+    return Math.ceil(remainingDays / (1000 * 60 * 60 * 24));
+  }
 
   return (
     <div className=" shadow-[4px_4px_12px_rgba(0,0,0,0.3)] rounded-2xl  overflow-hidden">
@@ -50,14 +59,16 @@ const ExploreFeaturedAdventuresCard = ({
             <BsStarFill /> {hike.rating}
           </span>
         </div>
-        <div className="flex items-center  gap-2">
-          <p className="flex  flex-col md:flex-row items-center gap-1 text-sm text-secondary">
+        <div className="flex items-center  gap-2 text-xs">
+          <p className="flex  flex-col md:flex-row items-center gap-1  text-secondary">
             <BiTimer />
-            <span className="">4 Days</span>
+            <span className="">
+              {getHikeTime(hike.departureDate)} Days to hike
+            </span>
           </p>
           |
-          <p className="flex flex-col md:flex-row items-center gap-1 text-sm text-secondary">
-            <BiMoney /> From KES {hike.price}
+          <p className="flex flex-col md:flex-row items-center gap-1  text-secondary">
+            <BiMoney /> From KES {hike.price.toLocaleString()}
             <span className="">Only</span>
           </p>
         </div>

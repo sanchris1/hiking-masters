@@ -24,4 +24,13 @@ export interface UpcomingExpedition {
   distanceFromNairobi: string;
   rating: number;
   location: string;
+  costBreakdown: {
+    entryFee: number;
+    transport: number;
+    accommodation?: number;
+    meals: number;
+    guideFee: number;
+    taxesAndLevies: number;
+    other: number;
+  };
 }

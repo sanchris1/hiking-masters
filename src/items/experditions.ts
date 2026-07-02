@@ -20,6 +20,15 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "Reach Point Lenana through the scenic Sirimon route while camping beneath the stars.",
+    costBreakdown: {
+      entryFee: 3500,
+      transport: 4500,
+      accommodation: 7000,
+      meals: 3000,
+      guideFee: 4500,
+      taxesAndLevies: 1000,
+      other: 1000,
+    },
   },
 
   {
@@ -41,6 +50,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "Catch an unforgettable sunrise over Nairobi while exploring the famous Ngong Hills.",
+    costBreakdown: {
+      entryFee: 300,
+      transport: 1000,
+      meals: 500,
+      guideFee: 400,
+      taxesAndLevies: 100,
+      other: 200,
+    },
   },
 
   {
@@ -62,6 +79,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "Walk through dramatic gorges, geothermal formations and spot wildlife on foot.",
+    costBreakdown: {
+      entryFee: 1200,
+      transport: 1800,
+      meals: 600,
+      guideFee: 700,
+      taxesAndLevies: 200,
+      other: 300,
+    },
   },
 
   {
@@ -83,6 +108,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Almost Full",
     description:
       "A demanding but rewarding climb through bamboo forests to stunning viewpoints.",
+    costBreakdown: {
+      entryFee: 1000,
+      transport: 2200,
+      meals: 700,
+      guideFee: 1000,
+      taxesAndLevies: 300,
+      other: 300,
+    },
   },
 
   {
@@ -104,6 +137,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "Climb the extinct volcano and walk around the breathtaking crater rim.",
+    costBreakdown: {
+      entryFee: 800,
+      transport: 1700,
+      meals: 600,
+      guideFee: 700,
+      taxesAndLevies: 200,
+      other: 200,
+    },
   },
 
   {
@@ -125,6 +166,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "A relaxed nature walk perfect for beginners, families and photography lovers.",
+    costBreakdown: {
+      entryFee: 300,
+      transport: 300,
+      meals: 300,
+      guideFee: 400,
+      taxesAndLevies: 100,
+      other: 100,
+    },
   },
 
   {
@@ -146,6 +195,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Open",
     description:
       "Explore one of Africa's largest volcanic calderas with sweeping Rift Valley views.",
+    costBreakdown: {
+      entryFee: 500,
+      transport: 1600,
+      meals: 500,
+      guideFee: 500,
+      taxesAndLevies: 200,
+      other: 200,
+    },
   },
 
   {
@@ -167,5 +224,14 @@ export const dummyUpcomingExpeditions: UpcomingExpedition[] = [
     status: "Limited",
     description:
       "Discover hidden waterfalls, lush indigenous forests and scenic camping spots.",
+    costBreakdown: {
+      entryFee: 1500,
+      transport: 2500,
+      accommodation: 3500,
+      meals: 1800,
+      guideFee: 2000,
+      taxesAndLevies: 700,
+      other: 800,
+    },
   },
 ];

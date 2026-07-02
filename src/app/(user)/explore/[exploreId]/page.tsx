@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { dummyUpcomingExpeditions } from "@/items/experditions";
 import { UpcomingExpedition } from "@/types/types";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiHeart } from "react-icons/bi";
 import { BsArrowRight, BsStarFill } from "react-icons/bs";
@@ -16,6 +17,8 @@ const ExploreDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [exploreEventDetails, setExploreEventDetails] =
     useState<UpcomingExpedition | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -134,7 +137,12 @@ const ExploreDetailsPage = () => {
                   </span>
                 </p>
               </div>
-              <button className="my-3 bg-accent px-8 py-2 text-surface-100 font-semibold text-lg rounded-2xl flex items-center gap-3 hover:gap-4 transition-all duration-700">
+              <button
+                onClick={() =>
+                  router.push(`/booking/${exploreEventDetails.id}`)
+                }
+                className="my-3 bg-accent px-8 py-2 text-surface-100 font-semibold text-lg rounded-2xl flex items-center gap-3 hover:gap-4 transition-all duration-700"
+              >
                 Book Expedition <BsArrowRight className="size-6" />
               </button>
             </div>

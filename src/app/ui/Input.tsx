@@ -5,6 +5,7 @@ interface InputComponentProps {
   as: "input" | "textarea";
   name: string;
   value: string;
+  label?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
@@ -17,11 +18,17 @@ const InputComponent = ({
   as = "input",
   name,
   value,
+  label,
   onChange,
 }: InputProps | TextareaProps) => {
   return (
     <div className="w-full">
       <div className="">
+        {label && (
+          <label className="text-sm font-medium  text-secondary ">
+            {label}:
+          </label>
+        )}
         {as === "textarea" ? (
           <textarea
             name={name}
