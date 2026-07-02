@@ -12,7 +12,7 @@ const FeaturedExpeditions = () => {
             <h2 className="text-4xl font-semibold text-text-accent ">
               Featured Expeditions
             </h2>
-            <p className="max-w-3xl text-lg text-text-accent">
+            <p className="max-w-3xl text-sm text-text-accent">
               Curated paths for every level of experience, from alpine meadows
               to technical ridge lines. Each journey is limited to small groups
               for intimacy and safety.
