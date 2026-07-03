@@ -5,7 +5,7 @@ import { dummyUpcomingExpeditions } from "@/items/experditions";
 const FeaturedExpeditions = () => {
   return (
     <section className="bg-surface-50 min-h-screen py-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         {/* heading */}
         <div className="flex lg:justify-between lg:items-end items-start gap-5 lg:flex-row flex-col">
           <div className="space-y-5">

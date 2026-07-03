@@ -17,7 +17,7 @@ const EmailSubmit = () => {
             reviews, and exclusive expedition early access.
           </p>
 
-          <form className="flex items-center gap-3">
+          <form className="flex items-center gap-3 flex-col md:flex-row">
             <input
               type="email"
               value={emailValue}
@@ -30,7 +30,7 @@ const EmailSubmit = () => {
             />
 
             <button
-              className="px-8 py-4 text-surface-50 bg-text-accent rounded-xl cursor-pointer font-semibold text-sm "
+              className="px-8 py-4 text-surface-50 bg-text-accent rounded-xl cursor-pointer font-semibold text-sm w-full"
               type="submit"
             >
               Submit

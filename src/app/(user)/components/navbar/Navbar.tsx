@@ -50,7 +50,7 @@ const Navbar = () => {
 
           {/* phone nav button */}
           <button
-            className="block lg:hidden  border border-border p-3 rounded-2xl text-primary/70 hover:text-primary"
+            className="block lg:hidden  border border-border p-3 rounded-2xl text-primary/70 hover:text-primary z-60"
             onClick={() => setOpenMobileMenu(!openMobileMenu)}
           >
             {openMobileMenu ? (

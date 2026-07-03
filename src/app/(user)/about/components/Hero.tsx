@@ -56,13 +56,13 @@ const AboutPageHero = () => {
         <div className="flex items-center justify-center gap-6">
           {aboutSectionAcc.map((acc) => (
             <div
-              className="flex flex-col items-center gap-2 bg-surface-200/30 p-3 backdrop-blur-3xl rounded-2xl"
+              className="flex flex-col items-center flex-wrap gap-2 bg-surface-200/30 p-3 backdrop-blur-3xl rounded-2xl"
               key={acc.take}
             >
-              <span className="text-sm font-semibold  text-secondary">
+              <span className="text-xs lg:text-sm font-semibold  text-secondary">
                 {acc.label}
               </span>
-              <span className="tracking-wide font-medium text-primary">
+              <span className="tracking-tighter font-medium text-primary text-sm lg:text-[18px] uppercase">
                 {acc.take}
               </span>
             </div>
