@@ -1,0 +1,66 @@
+import { BsCalendarCheckFill, BsCreditCard, BsStarFill } from "react-icons/bs";
+import { FaClipboardList, FaUserShield } from "react-icons/fa";
+import { FaMountain } from "react-icons/fa6";
+
+export const dashboardStats = [
+  {
+    id: "total-bookings",
+    title: "Total Bookings",
+    value: 1248,
+    icon: FaClipboardList,
+    percentage: 12.4,
+    trend: "up",
+    description: "Compared to last month",
+    color: "blue",
+  },
+  {
+    id: "upcoming-expeditions",
+    title: "Upcoming Expeditions",
+    value: 18,
+    icon: FaMountain,
+    percentage: 8.1,
+    trend: "up",
+    description: "Scheduled this month",
+    color: "green",
+  },
+  {
+    id: "active-customers",
+    title: "Active Customers",
+    value: 856,
+    icon: FaUserShield,
+    percentage: 15.3,
+    trend: "up",
+    description: "Returning hikers",
+    color: "purple",
+  },
+  {
+    id: "monthly-revenue",
+    title: "Monthly Revenue",
+    value: "KES 1,245,600",
+    icon: BsCreditCard,
+    percentage: 17.8,
+    trend: "up",
+    description: "Compared to last month",
+    color: "orange",
+  },
+  {
+    id: "average-rating",
+    title: "Average Rating",
+    value: "4.9",
+    icon: BsStarFill,
+    percentage: 2.3,
+    trend: "up",
+    description: "From 624 reviews",
+    color: "yellow",
+  },
+  {
+    id: "departures-this-week",
+    title: "Departures This Week",
+    value: 7,
+    icon: BsCalendarCheckFill,
+    percentage: 4.5,
+    trend: "down",
+    description: "Compared to last week",
+    color: "red",
+  },
+];

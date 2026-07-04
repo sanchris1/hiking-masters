@@ -24,11 +24,21 @@ const OurStory = () => {
             Elevating the African Trailing Experience
           </h2>
           <p className="text-sm text-secondary font-medium">
-            Super Hikers began with friends exploring the scenic trails of Ngong
-            Hills on weekends. As our passion for hiking grew, so did our
-            community, inspiring us to create unforgettable, professionally
-            guided adventures that help others discover the beauty of
-            Kenya&apos;s outdoors.
+            <span className="font-semibold text-primary">Super Hikers </span>{" "}
+            began with three friends and a shared love for the outdoors. What
+            started as weekend hike through the rolling trails of Ngong Hills
+            soon became a tradition, with every adventure inspiring us to
+            explore more of Kenya&apos;s incredible landscapes. <br />
+            <br />
+            As our passion grew, so did the number of friends, families, and
+            fellow adventurers joining our hikes. Today,{" "}
+            <span className="font-semibold text-primary">
+              Super Hikers{" "}
+            </span>{" "}
+            exists to share that same spirit of exploration by creating safe,
+            professionally guided experiences that help people discover the
+            beauty of nature, challenge themselves, and build lasting memories
+            together.
           </p>
         </div>
       </div>
