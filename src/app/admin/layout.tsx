@@ -16,7 +16,7 @@ const AdminLayout = ({
     <div className="w-full min-h-screen bg-surface-100 ">
       <div className="flex gap-4">
         <AdminSidebar />
-        <div className="flex flex-col gap-3 flex-1 ">
+        <div className="flex flex-col gap-3 flex-1 ml-64">
           <AdminNavbar />
           <main className="">{children}</main>
         </div>

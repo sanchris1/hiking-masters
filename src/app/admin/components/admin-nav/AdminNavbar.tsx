@@ -13,7 +13,7 @@ const AdminNavbar = () => {
   });
 
   return (
-    <nav className="sticky  shadow w-full  px-4">
+    <nav className="sticky  shadow w-full  px-4 top-0 bg-surface-100/70 backdrop-blur-2xl">
       <div className="flex items-center justify-between ">
         {/* search */}
         <div className=" relative">
