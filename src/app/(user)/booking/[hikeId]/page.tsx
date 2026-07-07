@@ -190,7 +190,7 @@ const BookingPage = () => {
               </span>
             </div>
             <div className="bg-surface-100 p-5 rounded-xl">
-              <div className="grid grid-cols-4 ">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 ">
                 <div className="space-y-2">
                   <span className="text-sm font-medium text-secondary tracking-tight">
                     Departure

@@ -5,7 +5,7 @@ import AdminChart from "../components/admin-dashboard/AdminChart";
 
 const AdminDashboard = () => {
   return (
-    <div className="p-8  space-y-8">
+    <div className="mx-3 my-4  space-y-8">
       {/* header */}
       <div className="flex items-center justify-between w-full ">
         <div className="space-y-1">
