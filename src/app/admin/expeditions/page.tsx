@@ -113,14 +113,14 @@ const ExpeditionsPage = () => {
         </button>
       </div>
       {/* content */}
-      <div className="flex items-center gap-6 w-full justify-between ">
+      <div className="">
         {/* left div */}
         <div className="col-span-2  flex flex-col gap-5">
           <div className="flex items-end gap-5 flex-wrap">
             {expeditionsStats.map((stat) => (
               <div
                 key={stat.label}
-                className="border border-gray-600 rounded-2xl p-2 flex-1 space-y-2.5 bg-surface-50 shadow-2xl"
+                className="border border-gray-300 rounded-2xl hover:border-secondary p-2 flex-1 space-y-2.5 bg-surface-50 shadow-lg hover:shadow-xl"
               >
                 <div className="flex items-center justify-between ">
                   <div className="flex items-center justify-center px-3 py-1 bg-secondary text-surface-100 rounded-xl">
@@ -223,8 +223,6 @@ const ExpeditionsPage = () => {
             )}
           </div>
         </div>
-        {/* right div */}
-        <div className="">right</div>
       </div>
     </div>
   );

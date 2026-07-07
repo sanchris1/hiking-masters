@@ -23,32 +23,32 @@ const AdminUpcomingExpedition = ({
           src={hike.image}
         />
       </div>
-      <div className="my-2 mx-6 bg-surface-200/20 rounded-2xl p-3 shadow-2xl space-y-4">
+      <div className="my-2 mx-6 bg-surface-200/20 rounded-2xl p-3 shadow-2xl space-y-3">
         <h3 className="leading-relaxed font-bold tracking-wide text-2xl text-primary">
           {hike.title}
         </h3>
         {/* <p className="">{hike.description}</p> */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-secondary font-medium">Difficulty:</p>
-          <span className="text-lg text-primary font-semibold">
+          <span className="text-sm text-primary font-semibold">
             {hike.difficulty}
           </span>
         </div>
         <div className="flex items-center justify-between">
           <p className="text-sm text-secondary font-medium">Meeting point:</p>
-          <span className="text-lg text-primary font-semibold">
+          <span className="text-sm text-primary font-semibold">
             {hike.meetingPoint}
           </span>
         </div>
         <div className="flex items-center justify-between">
           <p className="text-sm text-secondary font-medium">Tour guide:</p>
-          <span className="text-lg text-primary font-semibold">
+          <span className="text-sm text-primary font-semibold">
             {hike.guide}
           </span>
         </div>
         <div className="flex items-center justify-between">
           <p className="text-sm text-secondary font-medium">Slots left:</p>
-          <span className="text-lg text-primary font-semibold">
+          <span className="text-sm text-primary font-semibold">
             {hike.slotsLeft}/{hike.capacity}
           </span>
         </div>

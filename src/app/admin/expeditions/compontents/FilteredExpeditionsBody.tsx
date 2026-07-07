@@ -1,12 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import { UpcomingExpedition } from "@/types/types";
 import { BiUser } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const FilteredExpeditionsBody = ({
   expedition,
+  handleOpenActionMenu,
 }: {
   expedition: UpcomingExpedition;
+  handleOpenActionMenu: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    expedition: UpcomingExpedition,
+  ) => void;
 }) => {
   const difficultyColors: Record<string, string> = {
     Easy: "bg-emerald-100 text-emerald-700 border border-emerald-200",
@@ -85,7 +91,7 @@ const FilteredExpeditionsBody = ({
             <div
               className="h-full rounded-full bg-primary"
               style={{
-                width: `${(expedition.slotsLeft / expedition.capacity) * 100}%`,
+                width: `${((expedition.capacity - expedition.slotsLeft) / expedition.capacity) * 100}%`,
               }}
             />
           </div>
@@ -105,7 +111,10 @@ const FilteredExpeditionsBody = ({
       </td>
       {/* action */}
       <td>
-        <button className="rounded-lg p-2 hover:bg-surface-200 transition">
+        <button
+          className="rounded-lg p-2 hover:bg-surface-200 transition "
+          onClick={(e) => handleOpenActionMenu(e, expedition)}
+        >
           <BsThreeDotsVertical />
         </button>
       </td>
