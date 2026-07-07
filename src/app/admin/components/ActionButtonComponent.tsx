@@ -2,6 +2,7 @@
 "use client";
 
 import { UpcomingExpedition } from "@/types/types";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { BsCopy, BsEye, BsTrash } from "react-icons/bs";
 import { FiArchive, FiEdit } from "react-icons/fi";
@@ -15,6 +16,8 @@ const ActionButtonComponent = ({
   expedition: UpcomingExpedition;
   onClose: (expedition: UpcomingExpedition | null) => void;
 }) => {
+  const router = useRouter();
+
   const actions = [
     {
       label: "View Details",
@@ -24,7 +27,7 @@ const ActionButtonComponent = ({
     {
       label: "Edit Expedition",
       icon: FiEdit,
-      onClick: () => console.log("Edit"),
+      onClick: () => router.push(`/admin/expeditions/${expedition.id}/edit`),
     },
     {
       label: "Duplicate",

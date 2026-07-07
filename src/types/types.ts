@@ -34,3 +34,16 @@ export interface UpcomingExpedition {
     other: number;
   };
 }
+
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  role: "customer" | "guide" | "admin";
+  status: "active" | "inactive";
+  gender: "Male" | "Female";
+  joinedAt: string;
+  totalBookings: number;
+}

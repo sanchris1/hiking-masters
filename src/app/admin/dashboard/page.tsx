@@ -1,9 +1,11 @@
-import React from "react";
+"use client";
 import { BiPlus } from "react-icons/bi";
 import AdminDashboardStats from "../components/admin-dashboard/AdminDashboardStats";
 import AdminChart from "../components/admin-dashboard/AdminChart";
+import { useRouter } from "next/navigation";
 
 const AdminDashboard = () => {
+  const router = useRouter();
   return (
     <div className="mx-3 my-4  space-y-8">
       {/* header */}
@@ -17,7 +19,10 @@ const AdminDashboard = () => {
             one place.
           </p>
         </div>
-        <button className="bg-primary text-surface-200 px-5 py-2 rounded-xl text-sm flex items-center font-medium cursor-pointer  gap-2">
+        <button
+          className="bg-primary text-surface-200 px-5 py-2 rounded-xl text-sm flex items-center font-medium cursor-pointer  gap-2"
+          onClick={() => router.push("/admin/expeditions/new")}
+        >
           <BiPlus />
           Add new Expeditions
         </button>

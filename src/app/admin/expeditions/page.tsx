@@ -11,6 +11,7 @@ import { BsWatch } from "react-icons/bs";
 import { FaMoneyBill } from "react-icons/fa";
 import { FaDoorOpen } from "react-icons/fa6";
 import ExpeditionsFilterTable from "./compontents/ExpeditionsFilterTable";
+import { useRouter } from "next/navigation";
 
 const ExpeditionsPage = () => {
   const [difficulty, setDifficulty] = useState("");
@@ -19,6 +20,8 @@ const ExpeditionsPage = () => {
   const [filteredExpeditions, setFilteredExpeditions] = useState<
     UpcomingExpedition[] | null
   >(null);
+
+  const router = useRouter();
 
   const today = new Date();
 
@@ -107,7 +110,10 @@ const ExpeditionsPage = () => {
             Manage, organize and monitor all hiking expeditions from one place
           </p>
         </div>
-        <button className="bg-primary text-surface-200 px-5 py-2 rounded-xl text-sm flex items-center font-medium cursor-pointer  gap-2">
+        <button
+          className="bg-primary text-surface-200 px-5 py-2 rounded-xl text-sm flex items-center font-medium cursor-pointer  gap-2"
+          onClick={() => router.push("/admin/expeditions/new")}
+        >
           <BiPlus />
           Add new Expeditions
         </button>
