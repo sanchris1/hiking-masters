@@ -17,7 +17,6 @@ export interface SelectOptions {
 interface ExpeditionFormProps {
   label: string;
   name: string;
-  mode: "editing" | "creating";
   placeholder: string;
   type: FormFieldType;
   value: string;

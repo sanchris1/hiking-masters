@@ -1,24 +1,38 @@
 "use client";
 
-import { Save } from "lucide-react";
 import { useState } from "react";
-import ExpeditionForm, {
-  FormFieldType,
-  SelectOptions,
-} from "../compontents/ExpeditionForm";
-import { MdDescription, MdOutlineEdit } from "react-icons/md";
-import { SlCalender } from "react-icons/sl";
-import { GiMoneyStack } from "react-icons/gi";
-import { CgOrganisation } from "react-icons/cg";
-import { dummyUsers } from "@/items/admin.dummy";
-import { BsImageAlt } from "react-icons/bs";
+import { FormFieldType, SelectOptions } from "../compontents/ExpeditionForm";
+import ExpeditionPreview from "../compontents/ExpeditionPreview";
+import ExpeditionEditor from "../compontents/ExpeditionEditor";
 
 export type InputEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>
   | React.ChangeEvent<HTMLSelectElement>;
 
-const initialValues = {
+export interface ExpeditionFormValues {
+  expeditionTitle: string;
+  tagline: string;
+  location: string;
+  difficulty: string;
+  status: string;
+  category: string;
+  departureDate: string;
+  returnDate: string;
+  meetingTime: string;
+  departureTime: string;
+  duration: string;
+  registrationDeadlines: string;
+  capacity: string;
+  price: string;
+  guide: string;
+  meetingPoint: string;
+  contact: string;
+  fullDescription: string;
+  image: string;
+}
+
+const initialValues: ExpeditionFormValues = {
   expeditionTitle: "",
   tagline: "",
   location: "",
@@ -37,6 +51,7 @@ const initialValues = {
   meetingPoint: "",
   contact: "",
   fullDescription: "",
+  image: "",
 };
 
 export interface FormField {
@@ -50,348 +65,31 @@ export interface FormField {
 }
 
 const AddNewExpeditionsPage = () => {
+  const [preview, setPreview] = useState<null | string>(null);
   const [values, setValues] = useState(initialValues);
-
-  const inputDataBasicInformation: FormField[] = [
-    {
-      label: "Expedition Title",
-      placeholder: "Enter expedition title",
-      value: values.expeditionTitle,
-      name: "expeditionTitle",
-      type: "input",
-      colSpan: 2,
-    },
-    {
-      label: "Tagline",
-      placeholder: "The tagline",
-      value: values.tagline,
-      name: "tagline",
-      type: "input",
-      colSpan: 2,
-    },
-    {
-      label: "Location",
-      placeholder: "Location",
-      value: values.location,
-      name: "location",
-      type: "input",
-      colSpan: 1,
-    },
-    {
-      label: "Difficulty",
-      placeholder: "Select difficulty",
-      value: values.difficulty,
-      name: "difficulty",
-      type: "select",
-      colSpan: 1,
-      options: [
-        { label: "Easy", value: "easy" },
-        { label: "Moderate", value: "moderate" },
-        { label: "Difficult", value: "difficult" },
-        { label: "Extreme", value: "extreme" },
-      ],
-    },
-    {
-      label: "Status",
-      placeholder: "Select status",
-      value: values.status,
-      name: "status",
-      type: "select",
-      colSpan: 1,
-      options: [
-        { label: "Draft", value: "draft" },
-        { label: "Published", value: "published" },
-        { label: "Open for Booking", value: "open" },
-        { label: "Fully Booked", value: "full" },
-        { label: "Completed", value: "completed" },
-        { label: "Cancelled", value: "cancelled" },
-      ],
-    },
-    {
-      label: "Categories",
-      placeholder: "Select category",
-      value: values.category,
-      name: "category",
-      type: "select",
-      colSpan: 1,
-      options: [
-        { label: "Mountain Trek", value: "mountain-trek" },
-        { label: "Nature Hike", value: "nature-hike" },
-        { label: "Camping Expedition", value: "camping-expedition" },
-        { label: "Rock Climbing", value: "rock-climbing" },
-        { label: "Forest Trail", value: "forest-trail" },
-        { label: "Waterfall Hike", value: "waterfall-hike" },
-        { label: "Summit Challenge", value: "summit-challenge" },
-        { label: "Weekend Getaway", value: "weekend-getaway" },
-        { label: "Multi-day Expedition", value: "multi-day-expedition" },
-        { label: "Team Building", value: "team-building" },
-        { label: "Photography Tour", value: "photography-tour" },
-        { label: "Family Adventure", value: "family-adventure" },
-      ],
-    },
-  ];
-
-  const scheduleDataInformation: FormField[] = [
-    {
-      label: "Departure dates ",
-      placeholder: "Departure dates",
-      value: values.departureDate,
-      name: "departureDate",
-      type: "date",
-      colSpan: 1,
-    },
-    {
-      label: "Return dates ",
-      placeholder: "Return dates",
-      value: values.returnDate,
-      name: "returnDate",
-      type: "date",
-      colSpan: 1,
-    },
-    {
-      label: "Meeting time ",
-      placeholder: "Meeting time",
-      value: values.meetingTime,
-      name: "meetingTime",
-      type: "time",
-      colSpan: 1,
-    },
-    {
-      label: "Departure time ",
-      placeholder: "Departure time",
-      value: values.departureTime,
-      name: "departureTime",
-      type: "time",
-      colSpan: 1,
-    },
-  ];
-
-  const guideOptions = dummyUsers
-    .filter((user) => user.role === "guide")
-    .map((u) => ({ label: u.fullName, value: u.id }));
-
-  const pricingCapacityInformation: FormField[] = [
-    {
-      label: "Capacity",
-      placeholder: "",
-      value: values.capacity,
-      name: "capacity",
-      type: "number",
-      colSpan: 1,
-    },
-    {
-      label: "Price",
-      placeholder: "",
-      value: values.price,
-      name: "price",
-      type: "number",
-      colSpan: 1,
-    },
-  ];
-
-  const logisticsAndPersonnelInformation: FormField[] = [
-    {
-      label: "Guide",
-      placeholder: "Select Guide",
-      value: values.guide,
-      name: "guide",
-      type: "select",
-      colSpan: 1,
-      options: guideOptions,
-    },
-    {
-      label: "Meeting point",
-      placeholder: "Meeting Point",
-      value: values.meetingPoint,
-      name: "meetingPoint",
-      type: "input",
-      colSpan: 1,
-    },
-    {
-      label: "Guide contact",
-      placeholder: "",
-      value: values.contact,
-      name: "contact",
-      type: "number",
-      colSpan: 1,
-    },
-  ];
-
-  const descriptionAndContentInformation: FormField[] = [
-    {
-      label: "Full description",
-      placeholder: "Describe the journey in details",
-      value: values.fullDescription,
-      name: "fullDescription",
-      type: "textarea",
-      colSpan: 2,
-    },
-  ];
-
-  const handleInputChange = (e: InputEvent) => {
-    const { name, value } = e.target;
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   return (
     <div className="m-3">
       <div className="flex items-start gap-4">
         {/* left  creating bew*/}
 
-        <div className="w-7/12 mx-auto min-h-screen shadow-2xl rounded-2xl p-4 ">
-          <div className="">
-            <h2 className="text-3xl font-semibold text-primary leading-relaxed tracking-wide">
-              Create New Expedition
-            </h2>
-            <p className="text-secondary ">
-              Fill in the expedition details below to publish new hiking
-              experience
-            </p>
-          </div>
-          <form className=" mt-5 space-y-4">
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <MdOutlineEdit /> Basic information
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {inputDataBasicInformation.map((info) => (
-                  <div
-                    className={`${info.colSpan === 2 ? "col-span-2" : ""}`}
-                    key={info.label}
-                  >
-                    <ExpeditionForm
-                      label={info.label}
-                      placeholder={info.placeholder}
-                      value={values[info.name as keyof typeof values]}
-                      name={info.name}
-                      type={info.type}
-                      onChange={handleInputChange}
-                      mode="creating"
-                      options={info.options}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <SlCalender /> Schedule
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {scheduleDataInformation.map((info) => (
-                  <div
-                    className={`${info.colSpan === 2 ? "col-span-2" : ""}`}
-                    key={info.label}
-                  >
-                    <ExpeditionForm
-                      label={info.label}
-                      placeholder={info.placeholder}
-                      value={values[info.name as keyof typeof values]}
-                      name={info.name}
-                      type={info.type}
-                      onChange={handleInputChange}
-                      mode="creating"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <GiMoneyStack /> Capacity and Pricing
-              </h3>
-
-              <div className="grid grid-cols-2 gap-3">
-                {pricingCapacityInformation.map((info) => (
-                  <div
-                    className={`${info.colSpan === 2 ? "col-span-2" : ""}`}
-                    key={info.label}
-                  >
-                    <ExpeditionForm
-                      label={info.label}
-                      placeholder={info.placeholder}
-                      value={values[info.name as keyof typeof values]}
-                      name={info.name}
-                      type={info.type}
-                      onChange={handleInputChange}
-                      mode="creating"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <CgOrganisation /> Logistics and Personnel
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {logisticsAndPersonnelInformation.map((info) => (
-                  <div
-                    className={`${info.colSpan === 2 ? "col-span-2" : ""}`}
-                    key={info.label}
-                  >
-                    <ExpeditionForm
-                      label={info.label}
-                      placeholder={info.placeholder}
-                      value={values[info.name as keyof typeof values]}
-                      name={info.name}
-                      type={info.type}
-                      onChange={handleInputChange}
-                      mode="creating"
-                      options={info.options}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <MdDescription /> Description and Content
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {descriptionAndContentInformation.map((info) => (
-                  <div
-                    className={`${info.colSpan === 2 ? "col-span-2" : ""}`}
-                    key={info.label}
-                  >
-                    <ExpeditionForm
-                      label={info.label}
-                      placeholder={info.placeholder}
-                      value={values[info.name as keyof typeof values]}
-                      name={info.name}
-                      type={info.type}
-                      onChange={handleInputChange}
-                      mode="creating"
-                      options={info.options}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-2 bg-surface-200 rounded-2xl  space-y-4">
-              <h3 className="text-2xl font-medium text-primary  flex items-center gap-3">
-                <BsImageAlt /> Image
-              </h3>
-              <div className="grid grid-cols-2 gap-3"></div>
-            </div>
-          </form>
-        </div>
+        <ExpeditionEditor
+          mode="creating"
+          initialValues={initialValues}
+          preview={preview}
+          setPreview={setPreview}
+          values={values}
+          setValues={setValues}
+        />
 
         {/* right  preview*/}
-        <div className="w-5/12  p-4 rounded-2xl shadow-2xl">
-          <div className="flex items-center justify-between">
-            <button className="px-4 py-2 text-primary text-lg border-primary border-2 hover:bg-secondary/10 rounded-xl text-medium cursor-pointer ">
-              Cancel
-            </button>
-            <button className="px-4 py-2 bg-primary text-surface-200  text-lg rounded-xl hover:text-white flex items-center gap-3">
-              <Save className="size-5" />
-              Save Expedition
-            </button>
-          </div>
-        </div>
+        <ExpeditionPreview
+          setValues={setValues}
+          values={values}
+          initialValues={initialValues}
+          preview={preview}
+          setPreview={setPreview}
+        />
       </div>
     </div>
   );
