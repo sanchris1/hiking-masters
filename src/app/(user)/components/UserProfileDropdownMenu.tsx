@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import {
   Backpack,
   Bell,
@@ -13,8 +13,10 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { authClient } from "../../../../utils/auth-client";
 
 const UserProfileDropdownMenu = ({
   open,
@@ -94,8 +96,9 @@ const UserProfileDropdownMenu = ({
   ];
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
-  const user: any = false;
+  const user = useCurrentUser();
 
   useEffect(() => {
     const handleCloseDropdown = (e: MouseEvent) => {
@@ -112,6 +115,11 @@ const UserProfileDropdownMenu = ({
     return () => document.removeEventListener("mousedown", handleCloseDropdown);
   }, []);
 
+  const handleLogout = async () => {
+    await authClient.signOut();
+    router.refresh();
+  };
+
   return (
     <div
       ref={dropdownRef}
@@ -119,20 +127,21 @@ const UserProfileDropdownMenu = ({
     >
       <div className="">
         <h6 className="text-lg leading-relaxed font-semibold text-primary">
-          Peter Oyaro
+          {user?.name}
         </h6>
-        <span className="text-secondary text-sm">oyaro@gmail.com</span>
+        <span className="text-secondary text-sm">{user?.email}</span>
       </div>
       <div className="space-y-2">
         {userDropdownItems.map((item) => (
           <div
+            onClick={() => setOpen(false)}
             key={item.id}
             className={`font-medium  p-1 rounded ${item.danger ? "bg-red-100 text-red-600" : "text-secondary"}`}
           >
             {item.divider ? (
               <div className="w-full h-px bg-primary" />
             ) : item.adminSensitive ? (
-              user?.admin && (
+              user?.role === "admin" && (
                 <Link
                   href={"/admin"}
                   className="flex gap-2 items-center text-[15px]"
@@ -141,7 +150,10 @@ const UserProfileDropdownMenu = ({
                 </Link>
               )
             ) : item.action ? (
-              <button className="flex items-center gap-2">
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
                 <item.icon />
                 {item.label}
               </button>

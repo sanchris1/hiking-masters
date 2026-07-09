@@ -3,23 +3,26 @@
 import Link from "next/link";
 import Logo from "../logo/Logo";
 import Button from "@/app/ui/Button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import UserProfileDropdownMenu from "../UserProfileDropdownMenu";
+import { authClient } from "../../../../../utils/auth-client";
 
 export const myNavLinks = ["Explore", "About", "Contact"];
 const Navbar = () => {
-  const user = false;
-
   const pathname = usePathname();
+  const router = useRouter();
 
   // states for the phone links
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
   const [openUserDropdown, setOpenUserDropdown] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   return (
     <>
@@ -58,7 +61,9 @@ const Navbar = () => {
                   )}
                 </span>
               ) : (
-                <Button type="button">Login</Button>
+                <Button onClick={() => router.push("/login")} type="button">
+                  Login
+                </Button>
               )}
             </div>
 

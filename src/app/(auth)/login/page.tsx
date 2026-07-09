@@ -3,8 +3,12 @@
 import InputComponent from "@/app/ui/Input";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "../../../../utils/auth-client";
+import ButtonLoading from "@/components/ButtonLoading";
 
 const LoginPage = () => {
   const initialValues = {
@@ -13,6 +17,8 @@ const LoginPage = () => {
   };
 
   const [values, setValues] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
+  const { back } = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,6 +27,30 @@ const LoginPage = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const { error } = await authClient.signIn.email({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        toast.error(error.message || "Could not log in");
+      } else {
+        toast.success("Login successful");
+        back();
+      }
+      setValues(initialValues);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,8 +103,11 @@ const LoginPage = () => {
                 label="Enter password"
               />
             </div>
-            <button className="w-full cursor-pointer py-3 text-lg text-surface-50 rounded-lg  bg-accent/90 hover:bg-accent/95 active:bg-accent transition-all duration-150 font-semibold">
-              Login to Account
+            <button
+              className="w-full cursor-pointer py-3 text-lg text-surface-50 rounded-lg  bg-accent/90 hover:bg-accent/95 active:bg-accent transition-all duration-150 font-semibold"
+              onClick={onSubmit}
+            >
+              {loading ? <ButtonLoading /> : "Login to account"}
             </button>
 
             <div className=" relative">

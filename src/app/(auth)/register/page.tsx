@@ -1,10 +1,20 @@
 "use client";
 
 import InputComponent from "@/app/ui/Input";
+import ButtonLoading from "@/components/ButtonLoading";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "../../../../utils/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+interface RegisterPageValues {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const RegisterPage = () => {
   const initialValues = {
@@ -12,9 +22,9 @@ const RegisterPage = () => {
     email: "",
     password: "",
   };
-
-  const [values, setValues] = useState(initialValues);
-
+  const { push } = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState<RegisterPageValues>(initialValues);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -22,6 +32,31 @@ const RegisterPage = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const { error } = await authClient.signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        toast.error(error.message || "Could not sign up");
+      } else {
+        toast.success("Signup successful");
+        push("/");
+      }
+      setValues(initialValues);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,8 +118,11 @@ const RegisterPage = () => {
                 label="Enter password"
               />
             </div>
-            <button className="w-full cursor-pointer py-3 text-lg text-surface-50 rounded-lg  bg-accent/90 hover:bg-accent/95 active:bg-accent transition-all duration-150 font-semibold">
-              Create Account
+            <button
+              className="w-full cursor-pointer py-3 text-lg text-surface-50 rounded-lg  bg-accent/90 hover:bg-accent/95 active:bg-accent transition-all duration-150 font-semibold"
+              onClick={onSubmit}
+            >
+              {loading ? <ButtonLoading /> : "Create Account"}
             </button>
 
             <div className=" relative">
@@ -95,7 +133,14 @@ const RegisterPage = () => {
             </div>
 
             <button className="w-full cursor-pointer py-3 text-lg text-primary font-semibold rounded-lg  bg-accent/5 hover:bg-accent/10 active:bg-accent/15 transition-all duration-150 inline-flex justify-center items-center gap-4 border-2 border-primary">
-              <FcGoogle className="size-6" /> Google
+              {loading ? (
+                <ButtonLoading />
+              ) : (
+                <>
+                  {" "}
+                  <FcGoogle className="size-6" /> Google
+                </>
+              )}
             </button>
 
             <p className="text-center text-secondary text-sm">
