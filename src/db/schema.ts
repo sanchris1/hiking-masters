@@ -2,9 +2,10 @@ import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 
 export const UserRole = t.pgEnum("role", ["admin", "user"]);
+export const GenderEnum = t.pgEnum("gender", ["male", "female"]);
 
 export const user = pgTable("user", {
-  id: t.text("id").primaryKey(),
+  id: t.uuid("id").primaryKey(),
   name: t.text("name").notNull(),
   email: t.varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: t.boolean("email_verified").notNull(),
@@ -21,7 +22,7 @@ export const user = pgTable("user", {
 export const session = pgTable("session", {
   id: t.text("id").primaryKey(),
   userId: t
-    .text("user_id")
+    .uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   token: t.varchar("token", { length: 255 }).notNull().unique(),
@@ -80,4 +81,89 @@ export const verification = pgTable("verification", {
   updatedAt: t
     .timestamp("updated_at", { precision: 6, withTimezone: true })
     .notNull(),
+});
+
+export const expedition = pgTable(
+  "expedition",
+  {
+    id: t.uuid("id").primaryKey().notNull(),
+    title: t
+      .varchar("title", {
+        length: 256,
+      })
+      .notNull(),
+    image: t.varchar("image"),
+    departureDate: t.date("departureDate").notNull(),
+    returnDate: t.date("returnDate").notNull(),
+    difficulty: t.varchar("difficulty").notNull(),
+    price: t.integer("price").notNull(),
+    capacity: t.integer("capacity").default(0).notNull(),
+    category: t.varchar("category").notNull(),
+    status: t.text("status").default("open"),
+    description: t.varchar("description").notNull(),
+    location: t.varchar("location").notNull(),
+    distanceFromNairobi: t.integer("distanceFromNairobi").notNull(),
+    createdAt: t
+      .timestamp("createdAt", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: t
+      .timestamp("updatedAt", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [t.index("expeditionIndex").on(table.id)],
+);
+
+export const guide = pgTable("guide", {
+  userId: t
+    .text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  contact: t.varchar("contact").notNull(),
+  createdAt: t
+    .timestamp("createdAt", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: t
+    .timestamp("updatedAt", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const schedule = pgTable("schedule", {
+  id: t.uuid("id").primaryKey(),
+  expeditionId: t
+    .uuid("expeditionId")
+    .notNull()
+    .references(() => expedition.id, { onDelete: "cascade" }),
+  departureTime: t.time("departureTime").notNull(),
+  returnTime: t.time("returnTime").notNull(),
+  meetingPoint: t.varchar("meetingPoint").notNull(),
+  createdAt: t
+    .timestamp("createdAt", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: t
+    .timestamp("updatedAt", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const userProfile = pgTable("user_profile", {
+  id: t.uuid("id").primaryKey(),
+  userId: t
+    .text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  phoneNumber: t.varchar("phoneNumber", { length: 255 }),
+  gender: GenderEnum("gender"),
+  createdAt: t
+    .timestamp("createdAt", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: t
+    .timestamp("updatedAt", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
 });
