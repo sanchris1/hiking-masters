@@ -4,6 +4,8 @@ import { useState } from "react";
 import { FormFieldType, SelectOptions } from "../compontents/ExpeditionForm";
 import ExpeditionPreview from "../compontents/ExpeditionPreview";
 import ExpeditionEditor from "../compontents/ExpeditionEditor";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export type InputEvent =
   | React.ChangeEvent<HTMLInputElement>
@@ -11,7 +13,7 @@ export type InputEvent =
   | React.ChangeEvent<HTMLSelectElement>;
 
 export interface ExpeditionFormValues {
-  expeditionTitle: string;
+  title: string;
   tagline: string;
   location: string;
   difficulty: string;
@@ -28,12 +30,13 @@ export interface ExpeditionFormValues {
   guide: string;
   meetingPoint: string;
   contact: string;
-  fullDescription: string;
-  image: string;
+  description: string;
+  distanceFromNairobi: string;
+  returnTime: string;
 }
 
 const initialValues: ExpeditionFormValues = {
-  expeditionTitle: "",
+  title: "",
   tagline: "",
   location: "",
   difficulty: "",
@@ -45,13 +48,14 @@ const initialValues: ExpeditionFormValues = {
   departureTime: "",
   duration: "",
   registrationDeadlines: "",
+  distanceFromNairobi: "",
   capacity: "",
   price: "",
   guide: "",
   meetingPoint: "",
   contact: "",
-  fullDescription: "",
-  image: "",
+  description: "",
+  returnTime: "",
 };
 
 export interface FormField {
@@ -67,6 +71,55 @@ export interface FormField {
 const AddNewExpeditionsPage = () => {
   const [preview, setPreview] = useState<null | string>(null);
   const [values, setValues] = useState(initialValues);
+  const [image, setImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function createNewExpedition() {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+
+      formData.append("title", values.title);
+      formData.append("tagline", values.tagline);
+      formData.append("departureDate", values.departureDate);
+      formData.append("guideId", values.guide);
+      formData.append("returnDate", values.returnDate);
+      formData.append("difficulty", values.difficulty);
+      formData.append("price", values.price.toString());
+      formData.append("capacity", values.capacity.toString());
+      formData.append("category", values.category);
+      formData.append("status", values.status);
+      formData.append("description", values.description);
+      formData.append("location", values.location);
+      formData.append(
+        "distanceFromNairobi",
+        values.distanceFromNairobi.toString(),
+      );
+      formData.append("meetingTime", values.meetingTime);
+      formData.append("departureTime", values.departureTime);
+      formData.append("returnTime", values.returnTime);
+      formData.append("meetingPoint", values.meetingPoint);
+      formData.append("contact", values.contact);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await axios.post("/api/expeditions", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      toast.success("Property added successfully");
+      setValues(initialValues);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.error || "Something went wrong");
+        return;
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="m-3">
@@ -75,6 +128,9 @@ const AddNewExpeditionsPage = () => {
 
         <ExpeditionEditor
           mode="creating"
+          loading={loading}
+          createNewExpedition={createNewExpedition}
+          setImage={setImage}
           initialValues={initialValues}
           preview={preview}
           setPreview={setPreview}

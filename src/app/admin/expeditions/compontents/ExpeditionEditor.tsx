@@ -2,7 +2,7 @@
 
 import { dummyUsers } from "@/items/admin.dummy";
 import ExpeditionForm from "./ExpeditionForm";
-import React, { useState } from "react";
+import React from "react";
 import { ExpeditionFormValues, FormField, InputEvent } from "../new/page";
 import { MdDescription, MdOutlineEdit } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
@@ -10,6 +10,7 @@ import { GiMoneyStack } from "react-icons/gi";
 import { CgOrganisation } from "react-icons/cg";
 import { BsImageAlt, BsUpload } from "react-icons/bs";
 import ImageUploadComponent from "./ImageUploadComponent";
+import ButtonLoading from "@/components/ButtonLoading";
 
 const ExpeditionEditor = ({
   initialValues,
@@ -18,24 +19,26 @@ const ExpeditionEditor = ({
   values,
   setValues,
   mode,
+  setImage,
+  loading,
+  createNewExpedition,
 }: {
   mode: string;
   preview: string | null;
   values: typeof initialValues;
+  createNewExpedition: () => void;
+  loading: boolean;
   setValues: React.Dispatch<React.SetStateAction<ExpeditionFormValues>>;
   setPreview: (preview: null | string) => void;
   initialValues: ExpeditionFormValues;
+  setImage: (file: File | null) => void;
 }) => {
-  const [imageUrl, setImageUrl] = useState("");
-
-  const [image, setImage] = useState<File | null>(null);
-
   const inputDataBasicInformation: FormField[] = [
     {
       label: "Expedition Title",
       placeholder: "Enter expedition title",
-      value: values.expeditionTitle,
-      name: "expeditionTitle",
+      value: values.title,
+      name: "title",
       type: "input",
       colSpan: 2,
     },
@@ -142,6 +145,14 @@ const ExpeditionEditor = ({
       type: "time",
       colSpan: 1,
     },
+    {
+      label: "Return time ",
+      placeholder: "Return time",
+      value: values.returnTime,
+      name: "returnTime",
+      type: "time",
+      colSpan: 1,
+    },
   ];
 
   const guideOptions = dummyUsers
@@ -199,8 +210,8 @@ const ExpeditionEditor = ({
     {
       label: "Full description",
       placeholder: "Describe the journey in details",
-      value: values.fullDescription,
-      name: "fullDescription",
+      value: values.description,
+      name: "description",
       type: "textarea",
       colSpan: 2,
     },
@@ -359,13 +370,22 @@ const ExpeditionEditor = ({
         </div>
         <div className="flex items-center justify-between my-5">
           <button
+            type="button"
             className="px-4 py-2 text-primary text-lg border-primary border-2 hover:bg-secondary/10 rounded-xl text-medium cursor-pointer "
             onClick={() => setValues(initialValues)}
           >
             Discard
           </button>
-          <button className="px-4 py-2 bg-primary text-surface-200  text-lg rounded-xl hover:text-white flex items-center gap-3">
-            {mode === "creating" ? (
+          <button
+            type="button"
+            onClick={() =>
+              mode === "creating" ? createNewExpedition() : console.log(`sam`)
+            }
+            className="px-4 py-2 bg-accent text-surface-200  text-lg rounded-xl hover:text-white flex items-center gap-3"
+          >
+            {loading ? (
+              <ButtonLoading />
+            ) : mode === "creating" ? (
               <>
                 {" "}
                 <BsUpload /> Publish Expedition

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/purity */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
@@ -21,38 +20,46 @@ const AdminProfileDropdown = ({
 }) => {
   const profileDropdownItems = [
     {
+      id: "profile",
       label: "My Profile",
       icon: User,
       href: "/admin/profile",
     },
     {
+      id: "settings",
       label: "Settings",
       icon: Settings,
       href: "/admin/settings",
     },
     {
+      id: "divider-1",
       divider: true,
     },
     {
+      id: "help-center",
       label: "Help Center",
       icon: CircleHelp,
       href: "/admin/help",
     },
     {
+      id: "documentation",
       label: "Documentation",
       icon: BookOpen,
       href: "/admin/docs",
     },
     {
+      id: "divider-2",
       divider: true,
     },
     {
+      id: "logout",
       label: "Logout",
       icon: LogOut,
       action: "logout",
       danger: true,
     },
     {
+      id: "home",
       label: "Home Page",
       icon: HomeIcon,
       href: "/",
@@ -90,7 +97,7 @@ const AdminProfileDropdown = ({
       <div className="space-y-1.5">
         {profileDropdownItems.map((item) => (
           <div
-            key={item.label}
+            key={item.id}
             className={` ${item.divider ? "" : "bg-accent/5  hover:bg-accent/10"}  flex items-center gap-3  font-medium  p-1 rounded ${item.danger ? "bg-red-100 text-red-600" : "text-secondary"}`}
           >
             {item.href && (
@@ -105,12 +112,7 @@ const AdminProfileDropdown = ({
               </>
             )}
 
-            {item.divider && (
-              <div
-                className="w-full h-px bg-primary"
-                key={Math.random() * 100}
-              />
-            )}
+            {item.divider && <div className="w-full h-px bg-primary" />}
 
             {item.action && (
               <span

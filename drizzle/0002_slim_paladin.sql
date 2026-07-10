@@ -1,0 +1,2 @@
+ALTER TABLE "guide" ADD COLUMN "expeditionId" uuid PRIMARY KEY NOT NULL;--> statement-breakpoint
+ALTER TABLE "guide" ADD CONSTRAINT "guide_expeditionId_expedition_id_fk" FOREIGN KEY ("expeditionId") REFERENCES "public"."expedition"("id") ON DELETE cascade ON UPDATE no action;

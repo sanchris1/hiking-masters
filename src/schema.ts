@@ -86,13 +86,13 @@ export const verification = pgTable("verification", {
 export const expedition = pgTable(
   "expedition",
   {
-    id: t.uuid("id").primaryKey().notNull(),
+    id: t.uuid("id").defaultRandom().primaryKey().notNull(),
     title: t
       .varchar("title", {
         length: 256,
       })
       .notNull(),
-    image: t.varchar("image"),
+    image: t.varchar("image").notNull(),
     departureDate: t.date("departureDate").notNull(),
     returnDate: t.date("returnDate").notNull(),
     difficulty: t.varchar("difficulty").notNull(),
@@ -101,6 +101,7 @@ export const expedition = pgTable(
     category: t.varchar("category").notNull(),
     status: t.text("status").default("open"),
     description: t.varchar("description").notNull(),
+    tagline: t.varchar("tagline").notNull(),
     location: t.varchar("location").notNull(),
     distanceFromNairobi: t.integer("distanceFromNairobi").notNull(),
     createdAt: t
@@ -116,6 +117,11 @@ export const expedition = pgTable(
 );
 
 export const guide = pgTable("guide", {
+  expeditionId: t
+    .uuid("expeditionId")
+    .primaryKey()
+    .notNull()
+    .references(() => expedition.id, { onDelete: "cascade" }),
   userId: t
     .text("userId")
     .notNull()
@@ -132,13 +138,13 @@ export const guide = pgTable("guide", {
 });
 
 export const schedule = pgTable("schedule", {
-  id: t.uuid("id").primaryKey(),
   expeditionId: t
     .uuid("expeditionId")
     .notNull()
     .references(() => expedition.id, { onDelete: "cascade" }),
   departureTime: t.time("departureTime").notNull(),
   returnTime: t.time("returnTime").notNull(),
+  meetingTime: t.time("meetingTime").notNull(),
   meetingPoint: t.varchar("meetingPoint").notNull(),
   createdAt: t
     .timestamp("createdAt", { withTimezone: true })

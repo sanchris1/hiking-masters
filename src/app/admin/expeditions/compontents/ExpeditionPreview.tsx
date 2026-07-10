@@ -50,7 +50,7 @@ const ExpeditionPreview = ({
           <div className="">
             {" "}
             <h3 className="text-2xl font-medium text-primary leading-relaxed">
-              {values.expeditionTitle}
+              {values.title}
             </h3>
             <span className="flex items-center gap-3 text-accent ">
               <SlCalender />{" "}
