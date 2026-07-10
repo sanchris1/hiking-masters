@@ -5,7 +5,7 @@ export const UserRole = t.pgEnum("role", ["admin", "user"]);
 export const GenderEnum = t.pgEnum("gender", ["male", "female"]);
 
 export const user = pgTable("user", {
-  id: t.uuid("id").primaryKey(),
+  id: t.text("id").primaryKey(),
   name: t.text("name").notNull(),
   email: t.varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: t.boolean("email_verified").notNull(),
@@ -22,7 +22,7 @@ export const user = pgTable("user", {
 export const session = pgTable("session", {
   id: t.text("id").primaryKey(),
   userId: t
-    .uuid("user_id")
+    .text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   token: t.varchar("token", { length: 255 }).notNull().unique(),
@@ -151,9 +151,8 @@ export const schedule = pgTable("schedule", {
 });
 
 export const userProfile = pgTable("user_profile", {
-  id: t.uuid("id").primaryKey(),
   userId: t
-    .text("userId")
+    .text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   phoneNumber: t.varchar("phoneNumber", { length: 255 }),

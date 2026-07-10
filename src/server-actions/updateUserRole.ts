@@ -1,9 +1,9 @@
 "use server";
 
 import { isAdminEmail } from "@/helpers/admin";
-import { db } from "..";
-import { user } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { user } from "@/schema";
+import { db } from "@/config/db";
 
 export async function assignUserRole(userId: string, email: string) {
   const role = isAdminEmail(email) ? "admin" : "user";

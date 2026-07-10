@@ -1,8 +1,8 @@
 import { headers } from "next/headers";
 import { auth } from "../../utils/auth";
-import { db } from "..";
-import { user } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { user } from "@/schema";
+import { db } from "@/config/db";
 
 export const getCurrentUser = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
