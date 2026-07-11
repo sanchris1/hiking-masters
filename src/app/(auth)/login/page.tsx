@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "../../../../utils/auth-client";
 import ButtonLoading from "@/components/ButtonLoading";
+import { signInWithGoogle } from "@/server-actions/signInWithGoogle";
 
 const LoginPage = () => {
   const initialValues = {
@@ -117,7 +118,10 @@ const LoginPage = () => {
               </span>
             </div>
 
-            <button className="w-full cursor-pointer py-3 text-lg text-primary font-semibold rounded-lg  bg-accent/5 hover:bg-accent/10 active:bg-accent/15 transition-all duration-150 inline-flex justify-center items-center gap-4 border-2 border-primary">
+            <button
+              onClick={() => signInWithGoogle()}
+              className="w-full cursor-pointer py-3 text-lg text-primary font-semibold rounded-lg  bg-accent/5 hover:bg-accent/10 active:bg-accent/15 transition-all duration-150 inline-flex justify-center items-center gap-4 border-2 border-primary"
+            >
               <FcGoogle className="size-6" /> Google
             </button>
 
