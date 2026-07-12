@@ -10,6 +10,9 @@ import {
   User,
 } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { authClient } from "../../../../../utils/auth-client";
+import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const AdminProfileDropdown = ({
   open,
@@ -18,6 +21,7 @@ const AdminProfileDropdown = ({
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
+  const router = useRouter();
   const profileDropdownItems = [
     {
       id: "profile",
@@ -66,6 +70,8 @@ const AdminProfileDropdown = ({
     },
   ];
 
+  const user = useCurrentUser();
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -83,22 +89,29 @@ const AdminProfileDropdown = ({
     return () => document.removeEventListener("mousedown", handleCloseDropdown);
   }, []);
 
+  // const handle logout
+  const handleLogout = async () => {
+    await authClient.signOut();
+    router.replace("/");
+    router.refresh();
+  };
+
   return (
     <div
       ref={dropdownRef}
-      className={`fixed p-5  top-10 right-5   shadow-2xl  bg-background rounded-2xl w-64   ${open ? "opacity-100 " : "opacity-0"} max-w-sm space-y-4`}
+      className={`fixed p-5  top-10 right-5   shadow-2xl  bg-background rounded-2xl w-64   ${open ? "opacity-100 " : "opacity-0 pointer-events-none"} max-w-sm space-y-4 z-50`}
     >
       <div className="">
         <h6 className="text-lg leading-relaxed font-semibold text-primary">
-          Peter Oyaro
+          {user?.name}
         </h6>
-        <span className="text-secondary text-sm">oyaro@gmail.com</span>
+        <span className="text-secondary text-sm">{user?.email}</span>
       </div>
       <div className="space-y-1.5">
         {profileDropdownItems.map((item) => (
           <div
             key={item.id}
-            className={` ${item.divider ? "" : "bg-accent/5  hover:bg-accent/10"}  flex items-center gap-3  font-medium  p-1 rounded ${item.danger ? "bg-red-100 text-red-600" : "text-secondary"}`}
+            className={` ${item.divider ? "" : "bg-accent/5  hover:bg-accent/10"}  flex items-center gap-3  font-medium  p-1 rounded ${item.danger ? "bg-red-100 text-red-600" : "text-secondary"} cursor-pointer`}
           >
             {item.href && (
               <>
@@ -116,6 +129,7 @@ const AdminProfileDropdown = ({
 
             {item.action && (
               <span
+                onClick={handleLogout}
                 key={item.label}
                 className="flex items-center gap-2 text-[15px]  "
               >

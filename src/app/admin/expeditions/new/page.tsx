@@ -124,7 +124,7 @@ const AddNewExpeditionsPage = () => {
   return (
     <div className="m-3">
       <div className="flex items-start gap-4">
-        {/* left  creating bew*/}
+        {/* left  creating */}
 
         <ExpeditionEditor
           mode="creating"

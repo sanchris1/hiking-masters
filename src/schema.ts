@@ -1,3 +1,4 @@
+import { InferSelectModel, relations } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 
@@ -10,6 +11,7 @@ export const user = pgTable("user", {
   email: t.varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: t.boolean("email_verified").notNull(),
   image: t.text("image"),
+  isGuide: t.boolean("is_guide").notNull().default(false),
   role: UserRole("role").default("user").notNull(),
   createdAt: t
     .timestamp("created_at", { precision: 6, withTimezone: true })
@@ -172,3 +174,27 @@ export const userProfile = pgTable("user_profile", {
     .notNull()
     .defaultNow(),
 });
+
+export const userGuideRelations = relations(user, ({ one }) => ({
+  guide: one(guide),
+}));
+
+export const guideRelations = relations(guide, ({ one }) => ({
+  user: one(user, { fields: [guide.userId], references: [user.id] }),
+}));
+
+export const userRelations = relations(user, ({ one }) => ({
+  profile: one(userProfile),
+}));
+
+export const userProfileRelations = relations(userProfile, ({ one }) => ({
+  user: one(user, { fields: [userProfile.userId], references: [user.id] }),
+}));
+
+export const expeditionsRelations = relations(expedition, ({ one }) => ({
+  exp: one(guide),
+}));
+
+export type User = InferSelectModel<typeof user>;
+export type UserProfile = InferSelectModel<typeof userProfile>;
+export type Guide = InferSelectModel<typeof guide>;

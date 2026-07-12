@@ -1,3 +1,5 @@
+import { Guide, User, UserProfile } from "@/schema";
+
 export type HikingTour = {
   id: number;
   image: string;
@@ -35,15 +37,8 @@ export interface UpcomingExpedition {
   };
 }
 
-export interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  avatar: string;
-  role: "customer" | "guide" | "admin";
-  status: "active" | "inactive";
-  gender: "Male" | "Female";
-  joinedAt: string;
-  totalBookings: number;
-}
+export type UserWithDetails = {
+  user: User;
+  userProfile: UserProfile | null;
+  guide: Guide | null;
+};

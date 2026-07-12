@@ -10,13 +10,13 @@ const Hero = () => {
   return (
     <section className="relative w-full h-screen ">
       <Image
-        src={"/journey.png"}
+        src={"/happy.jpg"}
         alt="nature image"
         fill
         className="object-cover "
       />
       {/* overlay */}
-      <div className="bg-linear-to-r from-primary/60 via-primary/30 to-transparent absolute inset-0" />
+      <div className="bg-linear-to-r from-primary/70 via-primary/50 to-transparent absolute inset-0" />
 
       {/* content */}
       <div className="absolute inset-0 flex items-center justify-start max-w-7xl  mx-auto">
