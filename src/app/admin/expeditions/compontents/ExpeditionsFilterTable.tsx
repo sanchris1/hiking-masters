@@ -11,12 +11,12 @@ const ExpeditionsFilterTable = ({
   filteredExpeditions: UpcomingExpedition[];
 }) => {
   const expeditionTableFilterHeaders = [
-    { title: "Expeditions", width: "w-[350px]" },
-    { title: "Date & Duration", width: "w-[200px]" },
-    { title: "Guide", width: "w-[180px]" },
-    { title: "Difficulty", width: "w-[160px]" },
-    { title: "Slots", width: "w-[180px]" },
-    { title: "Status", width: "w-[160px]" },
+    { title: "Expeditions", width: "w-[300px]" },
+    { title: "Date & Duration", width: "w-[170px]" },
+    { title: "Guide", width: "w-[150px]" },
+    { title: "Difficulty", width: "w-[120px]" },
+    { title: "Slots", width: "w-[120px]" },
+    { title: "Status", width: "w-[120px]" },
     { title: "Action", width: "w-[80px]" },
   ];
 
@@ -43,7 +43,7 @@ const ExpeditionsFilterTable = ({
 
   return (
     <>
-      <table className="w-full border-separate border-spacing-0 bg-surface-50 min-w-325">
+      <table className="w-full border-separate border-spacing-0 bg-surface-50 min-w-0">
         <thead>
           <tr>
             {expeditionTableFilterHeaders.map((header) => (

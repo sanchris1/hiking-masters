@@ -17,12 +17,12 @@ const AdminNavbar = () => {
 
   return (
     <>
-      <nav className="sticky  shadow w-full  px-4 top-0 bg-surface-100/70 backdrop-blur-2xl">
+      <nav className="sticky  z-99  shadow w-full  px-4 left-0 right-0 top-0 bg-surface-100/70 backdrop-blur-2xl">
         <div className="flex items-center justify-between ">
           {/* search */}
-          <div className=" relative">
+          <div className=" relative w-full max-w-md">
             <input
-              className="py-2 px-8 bg-surface-200 rounded-2xl w-100 outline-none border-2 text-primary font-semibold text-sm border-primary "
+              className="py-2 px-8 bg-surface-200 rounded-2xl max-w-md outline-none border-2 text-primary font-semibold text-sm border-primary "
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}

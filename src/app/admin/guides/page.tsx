@@ -131,7 +131,7 @@ const GuidesPage = () => {
                 {userTableHeaders.map((header) => (
                   <th
                     key={header.id}
-                    className={` ${header.width} text-primary`}
+                    className={` ${header.width} text-primary py-8`}
                   >
                     {header.label}
                   </th>

@@ -84,8 +84,10 @@ const AdminChart = () => {
         : yearlyChartConfig;
 
   return (
-    <div className="flex gap-10 h-160">
-      <div className={`bg-surface-50 p-5  col-span-2 rounded-2xl shadow-xl`}>
+    <div className="flex gap-6 ">
+      <div
+        className={`bg-surface-50 p-5  min-w-0  rounded-2xl shadow-xl flex-1`}
+      >
         <div className="flex items-center justify-between">
           {/* heading */}
           <div className="space-y-1">
@@ -122,10 +124,12 @@ const AdminChart = () => {
           </ChartContainer>
         </div>
       </div>
-      <AdminUpcomingExpedition
-        hike={hike}
-        today={hike.departureDate === today.toString()}
-      />
+      <div className="w-96 shrink-0">
+        <AdminUpcomingExpedition
+          hike={hike}
+          today={hike.departureDate === today.toString()}
+        />
+      </div>
     </div>
   );
 };

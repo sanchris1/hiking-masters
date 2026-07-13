@@ -119,7 +119,7 @@ const AdminSidebar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="w-64 h-screen shadow-xl pr-2 fixed ">
+    <div className="w-64 h-screen shadow-xl pr-2 shrink-0">
       <div className="my-1 flex flex-col items-start p-4 gap-5">
         {adminSidebar.map((item) => (
           <div key={item.id} className="w-full flex flex-col gap-3.5">

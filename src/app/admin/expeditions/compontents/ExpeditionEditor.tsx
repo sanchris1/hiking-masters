@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { dummyUsers } from "@/items/admin.dummy";
 import ExpeditionForm from "./ExpeditionForm";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ExpeditionFormValues, FormField, InputEvent } from "../new/page";
 import { MdDescription, MdOutlineEdit } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
@@ -11,6 +11,8 @@ import { CgOrganisation } from "react-icons/cg";
 import { BsImageAlt, BsUpload } from "react-icons/bs";
 import ImageUploadComponent from "./ImageUploadComponent";
 import ButtonLoading from "@/components/ButtonLoading";
+import { UserWithDetails } from "@/types/types";
+import axios from "axios";
 
 const ExpeditionEditor = ({
   initialValues,
@@ -33,6 +35,27 @@ const ExpeditionEditor = ({
   initialValues: ExpeditionFormValues;
   setImage: (file: File | null) => void;
 }) => {
+  //fetching the users
+  const [guides, setGuides] = useState([]);
+
+  const getGuides = async () => {
+    const { data } = await axios.get("/api/users");
+    const users = data?.users;
+
+    const fetchedGuides = users
+      .filter((user: UserWithDetails) => user.user.isGuide)
+      .map((u: UserWithDetails) => ({
+        label: u.user.name,
+        value: u.user.id,
+      }));
+
+    setGuides(fetchedGuides);
+  };
+
+  useEffect(() => {
+    getGuides();
+  }, []);
+
   const inputDataBasicInformation: FormField[] = [
     {
       label: "Expedition Title",
@@ -155,10 +178,6 @@ const ExpeditionEditor = ({
     },
   ];
 
-  const guideOptions = dummyUsers
-    .filter((user) => user.role === "guide")
-    .map((u) => ({ label: u.fullName, value: u.id }));
-
   const pricingCapacityInformation: FormField[] = [
     {
       label: "Capacity",
@@ -186,7 +205,7 @@ const ExpeditionEditor = ({
       name: "guide",
       type: "select",
       colSpan: 1,
-      options: guideOptions,
+      options: guides,
     },
     {
       label: "Meeting point",

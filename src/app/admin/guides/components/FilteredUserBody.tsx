@@ -45,19 +45,19 @@ const FilteredUserBody = ({
       <td>
         {user.user.isGuide ? (
           <div className="flex flex-col items-center">
-            <span className=" font-semibold tracking-wider leading-relaxed text-primary text-lg">
+            <span className=" font-semibold tracking-wider leading-relaxed text-primary text-sm">
               Guide
             </span>
             <button
-              className="px-3 py-1 bg-red-600 rounded-full text-white font-bold text-sm cursor-pointer"
+              className="px-3 py-1 bg-red-600 rounded-full text-white font-bold text-sm cursor-pointer "
               onClick={() => handleToggleGuideStatus(user.user.id)}
             >
-              Remove as Guide
+              Remove Guide
             </button>
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <span className=" font-semibold tracking-wider leading-relaxed text-accent text-lg">
+            <span className=" font-semibold tracking-wider leading-relaxed text-accent text-sm">
               Not Guide
             </span>
             <button

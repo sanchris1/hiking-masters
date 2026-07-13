@@ -9,7 +9,7 @@ const AdminUpcomingExpedition = ({
   today: boolean;
 }) => {
   return (
-    <div className="flex-1 bg-white rounded-xl shadow-lg">
+    <div className="flex-1 bg-white rounded-xl shadow-lg h-full">
       <h4
         className={`text-lg m-3 font-semibold px-2 py-1 text-center rounded-full ${today ? "text-primary bg-accent/30" : "text-orange-700 bg-primary/30"}`}
       >

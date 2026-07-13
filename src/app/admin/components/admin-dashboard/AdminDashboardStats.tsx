@@ -11,10 +11,10 @@ const AdminDashboardStats = () => {
               className={`text-surface-200 ${stat.color === "blue" ? "bg-blue-800" : stat.color === "green" ? "bg-green-900" : stat.color === "purple" ? "bg-purple-700" : stat.color === "orange" ? "bg-orange-800" : stat.color === "yellow" ? "bg-yellow-800" : "bg-red-600"} p-1.5 rounded-lg`}
             >
               <stat.icon className="size-5" />
-              <h6 className="text-xs font-semibold">{stat.title}</h6>
+              <h6 className="text-xs font-semibold text-wrap">{stat.title}</h6>
             </div>
             <span
-              className={`${stat.trend === "up" ? "bg-primary/80" : "bg-red-500"} text-surface-200   flex  items-center justify-center rounded-full text-sm gap-3 px-2`}
+              className={`${stat.trend === "up" ? "bg-primary/80" : "bg-red-500"} text-surface-200   flex  items-center justify-center rounded-full text-sm gap-1 px-2`}
             >
               {stat.trend === "up" ? <FaArrowTrendUp /> : <FaArrowTrendDown />}
               {stat.percentage} %

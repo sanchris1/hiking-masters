@@ -22,13 +22,13 @@ const AdminLayout = async ({
   }
 
   return (
-    <div className="w-full min-h-screen bg-surface-100 ">
-      <div className="flex gap-4">
-        <AdminSidebar />
-        <div className="flex flex-col gap-3 flex-1 ml-64">
-          <AdminNavbar />
-          <main className="">{children}</main>
-        </div>
+    <div className="flex h-screen bg-surface-100">
+      <AdminSidebar />
+
+      <div className="flex flex-1 min-w-0 flex-col">
+        <AdminNavbar />
+
+        <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
   );
