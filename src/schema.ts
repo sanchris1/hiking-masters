@@ -105,6 +105,7 @@ export const expedition = pgTable(
     description: t.varchar("description").notNull(),
     tagline: t.varchar("tagline").notNull(),
     location: t.varchar("location").notNull(),
+    slotsLeft: t.integer("slots_left").notNull().default(0),
     distanceFromNairobi: t.integer("distanceFromNairobi").notNull(),
     createdAt: t
       .timestamp("createdAt", { withTimezone: true })
@@ -175,12 +176,36 @@ export const userProfile = pgTable("user_profile", {
     .defaultNow(),
 });
 
+export const booking = pgTable("booking", {
+  id: t.uuid("id").primaryKey().defaultRandom(),
+  userId: t
+    .text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  expeditionId: t
+    .uuid("expedition_id")
+    .notNull()
+    .references(() => expedition.id, { onDelete: "cascade" }),
+  createdAt: t
+    .timestamp("createdAt", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: t
+    .timestamp("updatedAt", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 export const userGuideRelations = relations(user, ({ one }) => ({
   guide: one(guide),
 }));
 
 export const guideRelations = relations(guide, ({ one }) => ({
   user: one(user, { fields: [guide.userId], references: [user.id] }),
+  expedition: one(expedition, {
+    fields: [guide.expeditionId],
+    references: [expedition.id],
+  }),
 }));
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -198,3 +223,4 @@ export const expeditionsRelations = relations(expedition, ({ one }) => ({
 export type User = InferSelectModel<typeof user>;
 export type UserProfile = InferSelectModel<typeof userProfile>;
 export type Guide = InferSelectModel<typeof guide>;
+export type Expedition = InferSelectModel<typeof expedition>;

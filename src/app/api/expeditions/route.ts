@@ -103,3 +103,9 @@ export async function POST(req: NextRequest) {
     { status: 201 },
   );
 }
+
+export async function GET() {
+  const allExpeditions = await db.select().from(expedition);
+
+  return NextResponse.json({ expeditions: allExpeditions });
+}

@@ -1,10 +1,50 @@
-import { dummyUpcomingExpeditions } from "@/items/experditions";
+/* eslint-disable react-hooks/set-state-in-effect */
+"use client";
+
 import ExploreFeaturedAdventuresCard from "../cards/ExploreFeaturedAdventuresCard";
+import { useEffect, useState } from "react";
+import { Expedition } from "@/schema";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ExploreFeaturedAdventures = () => {
+  const [expeditions, setExpeditions] = useState<Expedition[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchAllExpeditions = async () => {
+    try {
+      setLoading(true);
+
+      const { data: allExpeditions } = await axios.get("/api/expeditions");
+
+      if (allExpeditions.length === 0 || !allExpeditions)
+        return toast.error("No, expeditions found");
+
+      setExpeditions(allExpeditions.expeditions);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllExpeditions();
+  }, []);
+
+  const today = new Date();
+  const upcomingExpedition = expeditions
+    .filter((expedition) => new Date(expedition.departureDate) >= today)
+    .sort(
+      (a, b) =>
+        new Date(a.departureDate).getTime() -
+        new Date(b.departureDate).getTime(),
+    )[0];
+
+  console.log(upcomingExpedition);
   return (
     <section className="my-12 bg-white ">
-      <div className="max-w-7xl mx-auto p-3 ">
+      <div className="max-w-7xl mx-auto p-3 space-y-3">
         {/* heading */}
         <div className="space-y-1 ">
           <h2 className="text-2xl font-semibold text-primary">
@@ -15,10 +55,13 @@ const ExploreFeaturedAdventures = () => {
           </p>
         </div>
         {/* adventures arrays of cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6 ">
-          {dummyUpcomingExpeditions.slice(0, 6).map((hike) => (
-            <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="space-y-3 lg:col-span-8">
+            {expeditions.map((hike) => (
+              <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
+            ))}
+          </div>
+          <aside className="lg:col-span-4"></aside>
         </div>
       </div>
     </section>
