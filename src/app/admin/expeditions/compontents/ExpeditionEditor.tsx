@@ -223,6 +223,14 @@ const ExpeditionEditor = ({
       type: "number",
       colSpan: 1,
     },
+    {
+      label: "Distance From Nairobi",
+      placeholder: "",
+      value: values.distanceFromNairobi,
+      name: "distanceFromNairobi",
+      type: "number",
+      colSpan: 1,
+    },
   ];
 
   const descriptionAndContentInformation: FormField[] = [
