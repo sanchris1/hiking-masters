@@ -6,9 +6,9 @@ const Logo = () => {
       href={"/"}
       className="uppercase font-black text-lg text-primary group hover:text-accent duration-500 transition-colors"
     >
-      Super
+      Trails an
       <span className="text-accent group-hover:text-primary duration-500 transition-colors">
-        hikers
+        d Memoirs
       </span>
     </Link>
   );

@@ -1,10 +1,45 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+"use client";
+
 import Button from "@/app/ui/Button";
-import ExploreFeaturedAdventuresCard from "@/app/(user)/explore/cards/ExploreFeaturedAdventuresCard";
-import { dummyUpcomingExpeditions } from "@/items/experditions";
+import { useEffect, useState } from "react";
+import { Expedition } from "@/schema";
+import axios from "axios";
+import toast from "react-hot-toast";
+import FeaturedExpeditionsCard from "./FeaturedExpeditionsCard";
 
 const FeaturedExpeditions = () => {
+  //okay i am thinking of what to display here
+  const [loading, setLoading] = useState(false);
+  const [featuredExpeditions, setFeaturedExpeditions] = useState<Expedition[]>(
+    [],
+  );
+
+  async function fetchFeaturedExpeditions() {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.get("/api/expeditions/featured");
+
+      setFeaturedExpeditions(data.expeditions);
+    } catch (error) {
+      console.error(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data.message || "Error fetching featured products",
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchFeaturedExpeditions();
+  }, []);
+
   return (
-    <section className="bg-surface-50 min-h-screen py-12">
+    <section className="bg-surface-50  py-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* heading */}
         <div className="flex lg:justify-between lg:items-end items-start gap-5 lg:flex-row flex-col">
@@ -22,9 +57,10 @@ const FeaturedExpeditions = () => {
         </div>
 
         {/* the expeditions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-6">
-          {dummyUpcomingExpeditions.map((hike) => (
-            <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
+        {loading && <p className="">Loading expeditions...</p>}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-5">
+          {featuredExpeditions.map((hike) => (
+            <FeaturedExpeditionsCard key={hike.id} hike={hike} />
           ))}
         </div>
       </div>

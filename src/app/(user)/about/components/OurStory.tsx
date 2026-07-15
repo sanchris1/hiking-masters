@@ -24,7 +24,9 @@ const OurStory = () => {
             Elevating the African Trailing Experience
           </h2>
           <p className="text-sm text-secondary font-medium">
-            <span className="font-semibold text-primary">Super Hikers </span>{" "}
+            <span className="font-semibold text-primary">
+              Trails and Memoirs{" "}
+            </span>{" "}
             began with three friends and a shared love for the outdoors. What
             started as weekend hike through the rolling trails of Ngong Hills
             soon became a tradition, with every adventure inspiring us to

@@ -12,7 +12,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import UserProfileDropdownMenu from "../UserProfileDropdownMenu";
 import { authClient } from "../../../../../utils/auth-client";
 
-export const myNavLinks = ["Explore", "About", "Contact"];
+export const myNavLinks = ["Home", "Explore", "About", "Contact"];
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -34,7 +34,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center gap-8 ">
               {myNavLinks.map((link) => (
                 <Link
-                  href={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`${link.toLowerCase() === "home" ? "/" : "/" + link.toLowerCase()}`}
                   key={link}
                   className={`${pathname.includes(link.toLowerCase()) ? "text-accent" : "text-primary"} hover:text-accent text-[15px] font-semibold  relative `}
                 >

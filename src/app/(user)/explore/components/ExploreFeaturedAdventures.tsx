@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
@@ -6,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Expedition } from "@/schema";
 import axios from "axios";
 import toast from "react-hot-toast";
+import LeftExploreSide from "./LeftExploreSide";
 
 const ExploreFeaturedAdventures = () => {
   const [expeditions, setExpeditions] = useState<Expedition[]>([]);
@@ -57,11 +59,13 @@ const ExploreFeaturedAdventures = () => {
         {/* adventures arrays of cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="space-y-3 lg:col-span-8">
-            {expeditions.map((hike) => (
+            {expeditions?.map((hike) => (
               <ExploreFeaturedAdventuresCard key={hike.id} hike={hike} />
             ))}
           </div>
-          <aside className="lg:col-span-4"></aside>
+          <aside className="lg:col-span-4">
+            <LeftExploreSide upcomingExpedition={upcomingExpedition} />
+          </aside>
         </div>
       </div>
     </section>

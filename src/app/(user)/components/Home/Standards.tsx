@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import { FaEnvira, FaHandHoldingMedical } from "react-icons/fa6";
 import { MdVerifiedUser } from "react-icons/md";
 
@@ -26,7 +25,7 @@ const features = [
 
 const Standards = () => {
   return (
-    <section className="min-h-screen bg-primary py-20">
+    <section className=" bg-primary py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Image */}
