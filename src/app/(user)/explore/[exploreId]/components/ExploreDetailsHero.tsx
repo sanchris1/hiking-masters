@@ -1,4 +1,4 @@
-import { Expedition, Guide } from "@/schema";
+import { Expedition, Guide, Schedule } from "@/schema";
 import Image from "next/image";
 import Link from "next/link";
 import { IoLocationOutline } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 export type ExpeditionProps = {
   expedition: Expedition;
   guide?: Guide;
+  schedule?: Schedule | null;
 };
 
 const ExploreDetailsHero = ({ expedition }: ExpeditionProps) => {

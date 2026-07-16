@@ -1,5 +1,5 @@
 import { db } from "@/config/db";
-import { expedition, guide } from "@/schema";
+import { expedition, guide, schedule } from "@/schema";
 import { eq } from "drizzle-orm";
 
 export async function getExpeditionDetails(expeditionId: string) {
@@ -11,7 +11,8 @@ export async function getExpeditionDetails(expeditionId: string) {
     .select()
     .from(expedition)
     .where(eq(expedition.id, expeditionId))
-    .leftJoin(guide, eq(guide.expeditionId, expeditionId));
+    .leftJoin(guide, eq(guide.expeditionId, expeditionId))
+    .leftJoin(schedule, eq(schedule.expeditionId, expeditionId));
 
   return fetchedExpedition;
 }

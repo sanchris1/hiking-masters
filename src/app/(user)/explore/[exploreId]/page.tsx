@@ -1,6 +1,7 @@
 import { getExpeditionDetails } from "@/server-actions/getExpeditionDetails";
 import ExploreDetailsHero from "./components/ExploreDetailsHero";
 import ExploreDetailsBody from "./components/ExploreDetailsBody";
+import ExploreBookingCard from "./components/ExploreBookingCard";
 
 const ExploreDetailsPage = async ({
   params,
@@ -17,7 +18,14 @@ const ExploreDetailsPage = async ({
   return (
     <>
       <ExploreDetailsHero expedition={data.expedition} />
-      <ExploreDetailsBody />
+      <div className="flex flex-col lg:flex-row gap-3 mx-12 my-6">
+        <ExploreDetailsBody
+          expedition={data.expedition}
+          guide={data.guide}
+          schedule={data.schedule}
+        />
+        <ExploreBookingCard expedition={data.expedition} />
+      </div>
     </>
   );
 };

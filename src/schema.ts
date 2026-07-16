@@ -224,3 +224,4 @@ export type User = InferSelectModel<typeof user>;
 export type UserProfile = InferSelectModel<typeof userProfile>;
 export type Guide = InferSelectModel<typeof guide>;
 export type Expedition = InferSelectModel<typeof expedition>;
+export type Schedule = InferSelectModel<typeof schedule>;

@@ -123,7 +123,7 @@ const UserProfileDropdownMenu = ({
   return (
     <div
       ref={dropdownRef}
-      className={`fixed p-5  top-10 right-5  z-999  shadow-2xl  bg-background rounded-2xl w-64   ${open ? "opacity-100 " : "opacity-0"} max-w-sm space-y-4`}
+      className={`fixed p-5  top-10 right-5  z-999  shadow-2xl  bg-background rounded-2xl w-64   ${open ? "opacity-100 " : "opacity-0 pointer-events-none"} max-w-sm space-y-4`}
     >
       <div className="">
         <h6 className="text-lg leading-relaxed font-semibold text-primary">
