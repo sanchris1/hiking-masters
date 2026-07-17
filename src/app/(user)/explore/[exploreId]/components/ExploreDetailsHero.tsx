@@ -1,6 +1,10 @@
+'use client'
+
+
 import { Expedition, Guide, Schedule } from "@/schema";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
@@ -11,6 +15,11 @@ export type ExpeditionProps = {
 };
 
 const ExploreDetailsHero = ({ expedition }: ExpeditionProps) => {
+
+
+const router = useRouter()
+
+
   return (
     <div className="w-full h-screen relative">
       <Image
@@ -67,7 +76,7 @@ const ExploreDetailsHero = ({ expedition }: ExpeditionProps) => {
                 })}
               </p>
             </div>
-            <button className="py-2 px-4 rounded-full text-sm font-semibold bg-accent text-surface-200 hover:shadow-md cursor-pointer">
+            <button className="py-2 px-4 rounded-full text-sm font-semibold bg-accent text-surface-200 hover:shadow-md cursor-pointer" onClick={()=>router.push(`/booking/${expedition.id}`)}>
               Book This Expedition
             </button>
           </div>

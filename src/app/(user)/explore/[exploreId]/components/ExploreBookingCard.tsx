@@ -1,21 +1,16 @@
 "use client";
-import { useState } from "react";
 import { ExpeditionProps } from "./ExploreDetailsHero";
 import { Minus, Plus } from "lucide-react";
 import { BsShareFill } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
+import { useParticipantsStore } from "@/store/participantsStore";
+import { useRouter } from "next/navigation";
 
 const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
-  const [participants, setParticipants] = useState(1);
+  const { participants, incrementParticipants, decrementParticipants } =
+    useParticipantsStore((state) => state);
 
-  function handleChangeParticipants(action: string) {
-    setParticipants((prev) => {
-      if (action === "minus") {
-        return Math.max(1, prev - 1);
-      }
-      return Math.min(expedition.capacity, prev + 1);
-    });
-  }
+  const router = useRouter();
 
   return (
     <div className="w-full lg:w-5/12 rounded-2xl p-4 bg-primary space-y-12 lg:space-y-7 ">
@@ -37,7 +32,7 @@ const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
         <div className="flex items-center gap-3">
           <button
             disabled={participants === 1}
-            onClick={() => handleChangeParticipants("minus")}
+            onClick={() => decrementParticipants()}
             className="border-2 hover:bg-primary/5 active:bg-primary/10 border-primary rounded-full p-2 disabled:opacity-70"
           >
             <Minus />
@@ -48,7 +43,7 @@ const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
           <button
             className="border-2 hover:bg-primary/5 active:bg-primary/10 border-primary rounded-full p-2 disabled:opacity-50"
             disabled={participants === expedition.capacity}
-            onClick={() => handleChangeParticipants("plus")}
+            onClick={() => incrementParticipants(expedition.capacity)}
           >
             <Plus />
           </button>
@@ -64,7 +59,10 @@ const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
           share
         </button>
       </div>
-      <button className="bg-accent px-6 py-2 text-sm font-semibold tracking-wider text-white rounded-xl cursor-pointer">
+      <button
+        onClick={() => router.push(`/booking/${expedition.id}`)}
+        className="bg-accent px-6 py-2 text-sm font-semibold tracking-wider text-white rounded-xl cursor-pointer"
+      >
         Confirm Booking
       </button>
     </div>
