@@ -4,6 +4,7 @@ interface ParticipantsStoreState {
   participants: number;
   incrementParticipants: (capacity: number) => void;
   decrementParticipants: () => void;
+  reset: () => void;
 }
 
 export const useParticipantsStore = create<ParticipantsStoreState>()((set) => ({
@@ -16,4 +17,6 @@ export const useParticipantsStore = create<ParticipantsStoreState>()((set) => ({
 
   decrementParticipants: () =>
     set((state) => ({ participants: Math.max(1, state.participants - 1) })),
+
+  reset: () => set({ participants: 1 }),
 }));

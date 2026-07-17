@@ -10,6 +10,9 @@ import NoHikeIdPage from "../components/NoHikeIdPage";
 import { getExpeditionDetails } from "@/server-actions/getExpeditionDetails";
 import SpecialRequest from "../components/SpecialRequest";
 import BackButton from "../components/BackButton";
+import { auth } from "../../../../../utils/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const BookingPage = async ({
   params,
@@ -19,7 +22,15 @@ const BookingPage = async ({
   const { hikeId } = await params;
 
   if (!hikeId || hikeId === "no-hike") {
-    <NoHikeIdPage />;
+    return <NoHikeIdPage />;
+  }
+
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session) {
+    const callbackUrl = encodeURIComponent(`/booking/${hikeId}`);
+
+    redirect(`/login?callbackUrl=${callbackUrl}`);
   }
 
   const expedition = await getExpeditionDetails(hikeId);
@@ -46,8 +57,8 @@ const BookingPage = async ({
                 Personal information
               </span>
             </div>
-            <BookingInputs />
-            <SpecialRequest />
+            <BookingInputs exp={expedition.expedition} />
+            <SpecialRequest exp={expedition.expedition} />
           </div>
           <div className="my-12 space-y-8">
             <div className="flex gap-3 items-center">

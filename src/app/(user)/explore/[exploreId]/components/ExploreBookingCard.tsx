@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { ExpeditionProps } from "./ExploreDetailsHero";
 import { Minus, Plus } from "lucide-react";
@@ -5,12 +6,17 @@ import { BsShareFill } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { useParticipantsStore } from "@/store/participantsStore";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
-  const { participants, incrementParticipants, decrementParticipants } =
+  const { participants, incrementParticipants, decrementParticipants, reset } =
     useParticipantsStore((state) => state);
 
   const router = useRouter();
+
+  useEffect(() => {
+    reset();
+  }, [expedition.id]);
 
   return (
     <div className="w-full lg:w-5/12 rounded-2xl p-4 bg-primary space-y-12 lg:space-y-7 ">

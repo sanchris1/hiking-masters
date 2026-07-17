@@ -1,12 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Expedition } from "@/schema";
 import { useParticipantsStore } from "@/store/participantsStore";
+import { useEffect } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 
 const ChangeParticipantsComponent = ({ exp }: { exp: Expedition }) => {
-  const { participants, incrementParticipants, decrementParticipants } =
+  const { participants, incrementParticipants, decrementParticipants, reset } =
     useParticipantsStore((state) => state);
+
+  useEffect(() => {
+    reset();
+  }, [exp.id]);
 
   return (
     <div className="flex items-center gap-2.5 rounded-xl bg-white border-border border px-2 py-1">
