@@ -36,6 +36,34 @@
       "when": 1783832825978,
       "tag": "0004_marvelous_caretaker",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1784290681209,
+      "tag": "0005_puzzling_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1784291533121,
+      "tag": "0006_last_reaper",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1784291602480,
+      "tag": "0007_marvelous_mister_fear",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1784291953599,
+      "tag": "0008_dizzy_mindworm",
+      "breakpoints": true
     }
   ]
 }

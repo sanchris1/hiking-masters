@@ -178,10 +178,11 @@ export const userProfile = pgTable("user_profile", {
 
 export const booking = pgTable("booking", {
   id: t.uuid("id").primaryKey().defaultRandom(),
-  userId: t
+  userProfileId: t
     .text("user_id")
     .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+    .unique()
+    .references(() => userProfile.userId, { onDelete: "cascade" }),
   expeditionId: t
     .uuid("expedition_id")
     .notNull()
@@ -196,6 +197,31 @@ export const booking = pgTable("booking", {
     .defaultNow(),
 });
 
+export const favorites = pgTable(
+  "favorites",
+  {
+    userId: t
+      .text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    expeditionId: t
+      .uuid("expedition_id")
+      .notNull()
+      .references(() => expedition.id, { onDelete: "cascade" }),
+    createdAt: t
+      .timestamp("createdAt", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: t
+      .timestamp("updatedAt", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({
+    pk: t.primaryKey({ columns: [table.userId, table.expeditionId] }),
+  }),
+);
+
 export const userGuideRelations = relations(user, ({ one }) => ({
   guide: one(guide),
 }));
@@ -208,16 +234,26 @@ export const guideRelations = relations(guide, ({ one }) => ({
   }),
 }));
 
-export const userRelations = relations(user, ({ one }) => ({
+export const userRelations = relations(user, ({ one, many }) => ({
   profile: one(userProfile),
+  favorites: many(favorites),
 }));
 
 export const userProfileRelations = relations(userProfile, ({ one }) => ({
   user: one(user, { fields: [userProfile.userId], references: [user.id] }),
 }));
 
-export const expeditionsRelations = relations(expedition, ({ one }) => ({
+export const expeditionsRelations = relations(expedition, ({ one, many }) => ({
   exp: one(guide),
+  favorites: many(favorites),
+}));
+
+export const favoritesRelations = relations(favorites, ({ one }) => ({
+  user: one(user, { fields: [favorites.userId], references: [user.id] }),
+  expedition: one(expedition, {
+    fields: [favorites.expeditionId],
+    references: [expedition.id],
+  }),
 }));
 
 export type User = InferSelectModel<typeof user>;
