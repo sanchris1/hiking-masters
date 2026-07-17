@@ -8,9 +8,8 @@ const ProfileLayout = async ({
   children: Readonly<React.ReactNode>;
 }) => {
   const session = await auth.api.getSession({ headers: await headers() });
-
   if (!session) {
-    redirect(`/login`);
+    redirect("/login");
   }
 
   return <>{children}</>;
