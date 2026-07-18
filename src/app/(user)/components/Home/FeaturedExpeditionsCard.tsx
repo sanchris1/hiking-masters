@@ -72,7 +72,10 @@ const FeaturedExpeditionsCard = ({ hike }: { hike: Expedition }) => {
           >
             View Details
           </div>
-          <div className="px-4 cursor-pointer py-1.5 text-sm font-semibold text-surface-100 bg-primary/95 hover:bg-primary hover:text-surface-200 rounded-xl transition-all duration-500 active:bg-primary/80">
+          <div
+            onClick={() => router.push(`/booking/${hike.id}`)}
+            className="px-4 cursor-pointer py-1.5 text-sm font-semibold text-surface-100 bg-primary/95 hover:bg-primary hover:text-surface-200 rounded-xl transition-all duration-500 active:bg-primary/80"
+          >
             Book Now
           </div>
         </div>

@@ -14,6 +14,31 @@ import ButtonLoading from "@/components/ButtonLoading";
 import { UserWithDetails } from "@/types/types";
 import axios from "axios";
 
+export const difficultyLevels = [
+  { label: "Easy", value: "easy" },
+  { label: "Moderate", value: "moderate" },
+  { label: "Difficult", value: "difficult" },
+  { label: "Extreme", value: "extreme" },
+];
+
+export const statuses = [
+  { label: "Draft", value: "draft" },
+  { label: "Published", value: "published" },
+  { label: "Open for Booking", value: "open" },
+  { label: "Fully Booked", value: "full" },
+  { label: "Completed", value: "completed" },
+  { label: "Cancelled", value: "cancelled" },
+];
+
+export const categories = [
+  { label: "Draft", value: "draft" },
+  { label: "Published", value: "published" },
+  { label: "Open for Booking", value: "open" },
+  { label: "Fully Booked", value: "full" },
+  { label: "Completed", value: "completed" },
+  { label: "Cancelled", value: "cancelled" },
+];
+
 const ExpeditionEditor = ({
   initialValues,
   preview,
@@ -88,12 +113,7 @@ const ExpeditionEditor = ({
       name: "difficulty",
       type: "select",
       colSpan: 1,
-      options: [
-        { label: "Easy", value: "easy" },
-        { label: "Moderate", value: "moderate" },
-        { label: "Difficult", value: "difficult" },
-        { label: "Extreme", value: "extreme" },
-      ],
+      options: difficultyLevels,
     },
     {
       label: "Status",
@@ -102,14 +122,7 @@ const ExpeditionEditor = ({
       name: "status",
       type: "select",
       colSpan: 1,
-      options: [
-        { label: "Draft", value: "draft" },
-        { label: "Published", value: "published" },
-        { label: "Open for Booking", value: "open" },
-        { label: "Fully Booked", value: "full" },
-        { label: "Completed", value: "completed" },
-        { label: "Cancelled", value: "cancelled" },
-      ],
+      options: statuses,
     },
     {
       label: "Categories",
@@ -118,20 +131,7 @@ const ExpeditionEditor = ({
       name: "category",
       type: "select",
       colSpan: 1,
-      options: [
-        { label: "Mountain Trek", value: "mountain-trek" },
-        { label: "Nature Hike", value: "nature-hike" },
-        { label: "Camping Expedition", value: "camping-expedition" },
-        { label: "Rock Climbing", value: "rock-climbing" },
-        { label: "Forest Trail", value: "forest-trail" },
-        { label: "Waterfall Hike", value: "waterfall-hike" },
-        { label: "Summit Challenge", value: "summit-challenge" },
-        { label: "Weekend Getaway", value: "weekend-getaway" },
-        { label: "Multi-day Expedition", value: "multi-day-expedition" },
-        { label: "Team Building", value: "team-building" },
-        { label: "Photography Tour", value: "photography-tour" },
-        { label: "Family Adventure", value: "family-adventure" },
-      ],
+      options: categories,
     },
   ];
 

@@ -2,7 +2,7 @@ export const footerSections = [
   {
     title: "Expeditions",
     links: [
-      { label: "All Hikes", href: "/hikes" },
+      { label: "All Hikes", href: "/explore" },
       { label: "Difficulty Levels", href: "/difficulty-levels" },
       { label: "Gear List", href: "/gear-list" },
     ],

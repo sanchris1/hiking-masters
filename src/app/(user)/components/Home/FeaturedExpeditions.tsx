@@ -7,6 +7,7 @@ import { Expedition } from "@/schema";
 import axios from "axios";
 import toast from "react-hot-toast";
 import FeaturedExpeditionsCard from "./FeaturedExpeditionsCard";
+import { useRouter } from "next/navigation";
 
 const FeaturedExpeditions = () => {
   //okay i am thinking of what to display here
@@ -14,7 +15,7 @@ const FeaturedExpeditions = () => {
   const [featuredExpeditions, setFeaturedExpeditions] = useState<Expedition[]>(
     [],
   );
-
+  const router = useRouter();
   async function fetchFeaturedExpeditions() {
     try {
       setLoading(true);
@@ -53,7 +54,9 @@ const FeaturedExpeditions = () => {
               for intimacy and safety.
             </p>
           </div>
-          <Button type="button">View all the expeditions</Button>
+          <Button type="button" onClick={() => router.push("/explore")}>
+            View all the expeditions
+          </Button>
         </div>
 
         {/* the expeditions */}

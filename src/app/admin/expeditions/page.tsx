@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { expeditionDifficulties, expeditionStatuses } from "@/items/admin";
 import { dummyUpcomingExpeditions } from "@/items/experditions";
 import { UpcomingExpedition } from "@/types/types";
 import { useEffect, useState } from "react";
@@ -12,9 +11,15 @@ import { FaMoneyBill } from "react-icons/fa";
 import { FaDoorOpen } from "react-icons/fa6";
 import ExpeditionsFilterTable from "./compontents/ExpeditionsFilterTable";
 import { useRouter } from "next/navigation";
+import {
+  categories,
+  difficultyLevels,
+  statuses,
+} from "./compontents/ExpeditionEditor";
 
 const ExpeditionsPage = () => {
   const [difficulty, setDifficulty] = useState("");
+  const [categoriesInput, setCategoriesInput] = useState("");
   const [status, setStatus] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [filteredExpeditions, setFilteredExpeditions] = useState<
@@ -80,7 +85,6 @@ const ExpeditionsPage = () => {
         const matchesStatus = !status || expedition.status === status;
         const matchesDate =
           !departureDate || expedition.departureDate === departureDate;
-
         return matchesDate && matchesDifficulty && matchesStatus;
       },
     );
@@ -96,6 +100,7 @@ const ExpeditionsPage = () => {
     setDifficulty("");
     setDepartureDate("");
     setStatus("");
+    setCategoriesInput("");
   };
 
   return (
@@ -162,8 +167,8 @@ const ExpeditionsPage = () => {
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
                   <option value="">All difficulties</option>
-                  {expeditionDifficulties.map((diff) => (
-                    <option value={diff.label} key={diff.id}>
+                  {difficultyLevels.map((diff) => (
+                    <option value={diff.label} key={diff.label}>
                       {diff.label}
                     </option>
                   ))}
@@ -180,14 +185,32 @@ const ExpeditionsPage = () => {
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option value="">All statues</option>
-                  {expeditionStatuses.map((stat) => (
-                    <option value={stat.label} key={stat.id}>
+                  {statuses.map((stat) => (
+                    <option value={stat.label} key={stat.label}>
                       {stat.label}
                     </option>
                   ))}
                 </select>
               </div>
-              {/* Status */}
+              {/* categories */}
+              <div className="space-y-2 flex flex-col ">
+                <label htmlFor="" className="">
+                  Categories
+                </label>
+                <select
+                  className="w-full bg-surface-200 rounded-xl px-4 focus:border-primary border border-transparent py-3"
+                  value={status}
+                  onChange={(e) => setCategoriesInput(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((cat) => (
+                    <option value={cat.label} key={cat.label}>
+                      {cat.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* Date */}
               <div className="space-y-2 flex flex-col">
                 <label htmlFor="" className="">
                   Date
