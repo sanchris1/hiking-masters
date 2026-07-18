@@ -7,16 +7,28 @@ import { FaRegHeart } from "react-icons/fa6";
 import { useParticipantsStore } from "@/store/participantsStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { toggleFavoritesStore } from "@/store/toggleFavoritesStore";
+import { FaHeart } from "react-icons/fa";
+import axios from "axios";
 
 const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
   const { participants, incrementParticipants, decrementParticipants, reset } =
     useParticipantsStore((state) => state);
+  const { toggleFavorites, favorites } = toggleFavoritesStore((state) => state);
 
   const router = useRouter();
 
   useEffect(() => {
     reset();
   }, [expedition.id]);
+
+  async function handleToggleFavorites(expeditionId: string) {
+    toggleFavorites(expeditionId);
+
+    await axios.patch("/api/fav", { expeditionId });
+  }
+
+  const isFavorite = favorites.includes(expedition.id);
 
   return (
     <div className="w-full lg:w-5/12 rounded-2xl p-4 bg-primary space-y-12 lg:space-y-7 ">
@@ -56,9 +68,21 @@ const ExploreBookingCard = ({ expedition }: ExpeditionProps) => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-6 md:gap-8 lg:gap-12">
-        <button className="text-white flex items-center gap-3 text-[18px] active:bg-white/10 cursor-pointer hover:bg-white/5 font-semibold border-white border-2 px-5 py-1.5 rounded-xl">
-          <FaRegHeart />
-          wishlist
+        <button
+          onClick={() => handleToggleFavorites(expedition.id)}
+          className={` ${isFavorite ? "text-accent active:bg-accent/10 border-accent hover:bg-accent/5" : "text-white active:bg-white/10 hover:bg-white/5 "}  flex items-center gap-3 text-[18px]  cursor-pointer  font-semibold border-2 px-5 py-1.5 rounded-xl`}
+        >
+          {isFavorite ? (
+            <>
+              <FaHeart />
+            </>
+          ) : (
+            <>
+              {" "}
+              <FaRegHeart />
+              wishlist
+            </>
+          )}
         </button>
         <button className="text-white flex items-center gap-3 text-[18px] active:bg-white/10 cursor-pointer hover:bg-white/5 font-semibold border-white border-2 px-5 py-1.5 rounded-xl">
           <BsShareFill />

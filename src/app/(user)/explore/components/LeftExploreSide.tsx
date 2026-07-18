@@ -7,6 +7,7 @@ const LeftExploreSide = ({
 }: {
   upcomingExpedition: Expedition;
 }) => {
+  if (!upcomingExpedition) return null;
   const explorersHandbook = [
     {
       title: "Seasonal Packing",

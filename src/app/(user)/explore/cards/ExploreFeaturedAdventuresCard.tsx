@@ -2,10 +2,12 @@
 
 import { difficultyColors } from "@/lib/utils";
 import { Expedition } from "@/schema";
+import { toggleFavoritesStore } from "@/store/toggleFavoritesStore";
+import axios from "axios";
 import { LocateIcon, Timer } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FiHeart } from "react-icons/fi";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 
 interface ExploreFeaturedAdventuresCardProps {
@@ -30,6 +32,18 @@ const ExploreFeaturedAdventuresCard = ({
 
     return Math.ceil(difference / (1000 * 60 * 60 * 24));
   }
+
+  const { favorites, toggleFavorites, setFavorites } = toggleFavoritesStore(
+    (state) => state,
+  );
+  async function handleToggleFavorites(expeditionId: string) {
+    toggleFavorites(expeditionId);
+
+    await axios.patch("/api/fav", { expeditionId });
+  }
+  const isFavorite = favorites.includes(hike.id);
+
+  console.log(favorites);
 
   return (
     <div className="flex rounded-2xl overflow-hidden min-w-0 flex-col md:flex-row bg-white shadow-2xl flex-1 items-center">
@@ -56,9 +70,21 @@ const ExploreFeaturedAdventuresCard = ({
               &quot;{hike.tagline}&quot;
             </p>
           </div>{" "}
-          <div className="text-primary hover:text-accent cursor-pointer transition-all duration-200 ">
-            <FiHeart className="size-6" />
-          </div>
+          <button
+            onClick={() => handleToggleFavorites(hike.id)}
+            className={` ${isFavorite ? "text-accent " : "text-primary hover:text-accent  "}  text-[20px]  cursor-pointer  `}
+          >
+            {isFavorite ? (
+              <>
+                <FaHeart />
+              </>
+            ) : (
+              <>
+                {" "}
+                <FaRegHeart />
+              </>
+            )}
+          </button>
         </div>
         <div className="flex items-center flex-nowrap justify-between w-full gap-4">
           <div className="flex items-center gap-2 bg-secondary/10 rounded-2xl border-border border py-0.5 px-2">

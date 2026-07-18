@@ -43,7 +43,6 @@ const ExploreFeaturedAdventures = () => {
         new Date(b.departureDate).getTime(),
     )[0];
 
-  console.log(upcomingExpedition);
   return (
     <section className="my-12 bg-white ">
       <div className="max-w-7xl mx-auto p-3 space-y-3">
