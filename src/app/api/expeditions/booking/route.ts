@@ -3,7 +3,7 @@ import { auth } from "../../../../../utils/auth";
 import { headers } from "next/headers";
 import { db } from "@/config/db";
 import { booking, expedition, userProfile } from "@/schema";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -18,18 +18,28 @@ export async function POST(request: NextRequest) {
   const gender = (formData.get("gender") as "male" | "female").toLowerCase();
   const specialRequest = formData.get("specialRequest") as string | null;
 
-  console.log(phoneNumber);
-  console.log(participants);
-  console.log(expeditionId);
-  console.log(gender);
-  console.log(specialRequest);
-
   if (gender !== "male" && gender !== "female") {
     return NextResponse.json({ message: "Invalid gender" }, { status: 400 });
   }
 
   if ([phoneNumber, gender].some((item) => !item)) {
     return NextResponse.json({ message: "Please add all the inputs" });
+  }
+
+  const [existingBooking] = await db
+    .select()
+    .from(booking)
+    .where(
+      and(
+        eq(booking.userProfileId, session.user.id),
+        eq(booking.expeditionId, expeditionId),
+      ),
+    );
+
+  if (existingBooking) {
+    return NextResponse.json({
+      message: "Booking already existing,please select another",
+    });
   }
 
   await db.insert(booking).values({

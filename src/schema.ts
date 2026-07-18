@@ -198,7 +198,12 @@ export const booking = pgTable(
       .notNull()
       .defaultNow(),
   },
-  (table) => ({ bookingIndex: t.index("booking_index").on(table.id) }),
+  (table) => ({
+    bookingIndex: t.index("booking_index").on(table.id),
+    uniqueUserBookedExpedition: t
+      .uniqueIndex("booking_user_expedition_unique")
+      .on(table.expeditionId, table.userProfileId),
+  }),
 );
 
 export const favorites = pgTable(

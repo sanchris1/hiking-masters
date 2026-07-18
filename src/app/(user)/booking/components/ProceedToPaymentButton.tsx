@@ -6,8 +6,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
-  const { values } = useBookingStore((state) => state);
-  const { participants } = useParticipantsStore((state) => state);
+  const { values, reset: resetBookingStore } = useBookingStore(
+    (state) => state,
+  );
+  const { participants, reset: resetParticipants } = useParticipantsStore(
+    (state) => state,
+  );
 
   const formData = new FormData();
 
@@ -24,6 +28,8 @@ const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
       })
       .then(({ data }) => {
         toast.success(data.message);
+        resetBookingStore();
+        resetParticipants();
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
