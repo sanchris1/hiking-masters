@@ -162,7 +162,6 @@ export const schedule = pgTable("schedule", {
 export const userProfile = pgTable("user_profile", {
   userId: t
     .text("user_id")
-    .unique()
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   phoneNumber: t.varchar("phoneNumber", { length: 255 }),
@@ -177,27 +176,30 @@ export const userProfile = pgTable("user_profile", {
     .defaultNow(),
 });
 
-export const booking = pgTable("booking", {
-  id: t.uuid("id").primaryKey().defaultRandom(),
-  userProfileId: t
-    .text("user_id")
-    .notNull()
-    .unique()
-    .references(() => userProfile.userId, { onDelete: "cascade" }),
-  expeditionId: t
-    .uuid("expedition_id")
-    .notNull()
-    .references(() => expedition.id, { onDelete: "cascade" }),
-  specialRequest: t.varchar("special_request").default(""),
-  createdAt: t
-    .timestamp("createdAt", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: t
-    .timestamp("updatedAt", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const booking = pgTable(
+  "booking",
+  {
+    id: t.uuid("id").primaryKey().defaultRandom().notNull(),
+    userProfileId: t
+      .text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    expeditionId: t
+      .uuid("expedition_id")
+      .notNull()
+      .references(() => expedition.id, { onDelete: "cascade" }),
+    specialRequest: t.varchar("special_request").default(""),
+    createdAt: t
+      .timestamp("createdAt", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: t
+      .timestamp("updatedAt", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => ({ bookingIndex: t.index("booking_index").on(table.id) }),
+);
 
 export const favorites = pgTable(
   "favorites",

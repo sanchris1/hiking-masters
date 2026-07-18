@@ -14,6 +14,7 @@ import { auth } from "../../../../../utils/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/server-actions/getCurrentUser";
+import ProceedToPaymentButton from "../components/ProceedToPaymentButton";
 
 const BookingPage = async ({
   params,
@@ -180,9 +181,7 @@ const BookingPage = async ({
               </div>
 
               <div className="w-full h-0.5 rounded-full bg-primary my-1" />
-              <button className="w-full bg-accent text-[15px] cursor-pointer rounded-xl font-medium text-surface-200  py-2   my-5">
-                Proceed to payment
-              </button>
+              <ProceedToPaymentButton expeditionId={expedition.expedition.id} />
             </div>
           </div>
         </div>

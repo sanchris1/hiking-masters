@@ -14,8 +14,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Unauthorized!!" });
   }
 
-  console.log(currentUser);
-
   const formData = await req.formData();
 
   const title = formData.get("title") as string;

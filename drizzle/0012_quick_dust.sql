@@ -1,0 +1,1 @@
+ALTER TABLE "user_profile" DROP CONSTRAINT "user_profile_user_id_unique";
