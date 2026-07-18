@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
@@ -6,7 +7,7 @@ import { Expedition } from "@/schema";
 import { useBookingStore } from "@/store/useBookingStore";
 import { useEffect } from "react";
 
-const BookingInputs = ({ exp }: { exp: Expedition }) => {
+const BookingInputs = ({ exp, user }: { exp: Expedition; user: any }) => {
   const { values, setField, reset } = useBookingStore((state) => state);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,13 +20,15 @@ const BookingInputs = ({ exp }: { exp: Expedition }) => {
     reset();
   }, [exp.id]);
 
+  if (!user) return null;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       <InputComponent
         label="Fullname"
         name="fullName"
         placeholder="Enter your full name"
-        value={values.fullName}
+        value={user.name}
         onChange={handleChange}
         as="input"
         className=""
@@ -34,7 +37,7 @@ const BookingInputs = ({ exp }: { exp: Expedition }) => {
         label="Email"
         name="email"
         placeholder="Enter your email"
-        value={values.email}
+        value={user.email}
         onChange={handleChange}
         as="input"
         className=""

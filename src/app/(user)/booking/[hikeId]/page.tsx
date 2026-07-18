@@ -13,6 +13,7 @@ import BackButton from "../components/BackButton";
 import { auth } from "../../../../../utils/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/server-actions/getCurrentUser";
 
 const BookingPage = async ({
   params,
@@ -32,6 +33,8 @@ const BookingPage = async ({
 
     redirect(`/login?callbackUrl=${callbackUrl}`);
   }
+
+  const user = await getCurrentUser();
 
   const expedition = await getExpeditionDetails(hikeId);
 
@@ -57,7 +60,7 @@ const BookingPage = async ({
                 Personal information
               </span>
             </div>
-            <BookingInputs exp={expedition.expedition} />
+            <BookingInputs exp={expedition.expedition} user={user} />
             <SpecialRequest exp={expedition.expedition} />
           </div>
           <div className="my-12 space-y-8">
