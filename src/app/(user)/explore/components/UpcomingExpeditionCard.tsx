@@ -1,14 +1,9 @@
 "use client";
 
-import { UpcomingExpedition } from "@/types/types";
+import { Expedition } from "@/schema";
 import { useRouter } from "next/navigation";
-import { BiUser } from "react-icons/bi";
 
-const UpcomingExpeditionCard = ({
-  expedition,
-}: {
-  expedition: UpcomingExpedition;
-}) => {
+const UpcomingExpeditionCard = ({ expedition }: { expedition: Expedition }) => {
   const router = useRouter();
   const date = expedition.departureDate;
   const formattedDate = new Date(date).toLocaleDateString("en-GB", {
@@ -45,17 +40,6 @@ const UpcomingExpeditionCard = ({
           <h5 className="text-sm font-semibold text-surface-200">
             {expedition.title}
           </h5>
-          <div className="flex items-center gap-1.5">
-            <span className="w-7 h-7 rounded-full bg-surface-50/30 text-accent flex items-center justify-center">
-              <BiUser />
-            </span>
-            <div className="flex flex-col text-xs ">
-              <span className="text-surface-200 font-light"> Teams Guide</span>
-              <span className="font-medium text-text-accent">
-                {expedition.guide}
-              </span>
-            </div>
-          </div>
         </div>
         <div className="flex flex-col gap-3 text-xs ">
           <span className="text-[10px]  text-surface-50/80 font-light text-nowrap">

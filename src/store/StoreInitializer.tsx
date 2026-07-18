@@ -15,8 +15,6 @@ const StoreInitializer = ({ session }: { session: any }) => {
       try {
         const { data } = await axios.get("/api/fav");
 
-        console.log(data.favorites);
-
         setFavorites(data.favorites);
       } catch (error) {
         console.log(error);

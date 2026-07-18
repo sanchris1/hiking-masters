@@ -33,17 +33,13 @@ const ExploreFeaturedAdventuresCard = ({
     return Math.ceil(difference / (1000 * 60 * 60 * 24));
   }
 
-  const { favorites, toggleFavorites, setFavorites } = toggleFavoritesStore(
-    (state) => state,
-  );
+  const { favorites, toggleFavorites } = toggleFavoritesStore((state) => state);
   async function handleToggleFavorites(expeditionId: string) {
     toggleFavorites(expeditionId);
 
     await axios.patch("/api/fav", { expeditionId });
   }
   const isFavorite = favorites.includes(hike.id);
-
-  console.log(favorites);
 
   return (
     <div className="flex rounded-2xl overflow-hidden min-w-0 flex-col md:flex-row bg-white shadow-2xl flex-1 items-center">
