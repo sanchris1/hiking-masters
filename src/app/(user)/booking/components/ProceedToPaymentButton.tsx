@@ -1,8 +1,10 @@
 "use client";
 
+import ButtonLoading from "@/components/ButtonLoading";
 import { useParticipantsStore } from "@/store/participantsStore";
 import { useBookingStore } from "@/store/useBookingStore";
 import axios from "axios";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
@@ -14,6 +16,7 @@ const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
   );
 
   const formData = new FormData();
+  const [loading, setLoading] = useState(false);
 
   formData.append("phoneNumber", values.phoneNumber);
   formData.append("participants", String(participants));
@@ -22,6 +25,7 @@ const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
   formData.append("specialRequest", values.specialRequest);
 
   const handleCreateBooking = async () => {
+    setLoading(true);
     await axios
       .post("/api/expeditions/booking", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -37,6 +41,9 @@ const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
             error.response?.data.message || error.message || "Error booking",
           );
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -45,7 +52,7 @@ const ProceedToPaymentButton = ({ expeditionId }: { expeditionId: string }) => {
       className="w-full bg-accent text-[15px] cursor-pointer rounded-xl font-medium text-surface-200  py-2   my-5"
       onClick={() => handleCreateBooking()}
     >
-      Proceed to payment
+      {loading ? <ButtonLoading /> : "Proceed to payment"}
     </button>
   );
 };
