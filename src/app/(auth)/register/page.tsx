@@ -84,7 +84,7 @@ const RegisterPage = () => {
           <div className="p-5 shadow-2xl rounded-lg min-w-96 lg:min-w-120 w-auto bg-surface-100 space-y-12">
             <div className="">
               <h3 className="text-3xl font-semibold tracking-tight  text-primary">
-                Join the SuperHikers
+                Join the Trails and Memoirs
               </h3>
               <p className="text-secondary font-medium text-sm">
                 Start your journey of adventure today

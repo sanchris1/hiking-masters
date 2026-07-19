@@ -162,7 +162,6 @@ export const userProfile = pgTable("user_profile", {
   userId: t
     .text("user_id")
     .notNull()
-    .unique()
     .references(() => user.id, { onDelete: "cascade" }),
   phoneNumber: t.varchar("phoneNumber", { length: 255 }),
   gender: GenderEnum("gender"),

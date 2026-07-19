@@ -2,15 +2,16 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import ExploreFeaturedAdventuresCard from "../cards/ExploreFeaturedAdventuresCard";
+import ExploreFeaturedAdventuresCard, {
+  ExpeditionWithSlots,
+} from "../cards/ExploreFeaturedAdventuresCard";
 import { useEffect, useState } from "react";
-import { Expedition } from "@/schema";
 import axios from "axios";
 import toast from "react-hot-toast";
 import LeftExploreSide from "./LeftExploreSide";
 
 const ExploreFeaturedAdventures = () => {
-  const [expeditions, setExpeditions] = useState<Expedition[]>([]);
+  const [expeditions, setExpeditions] = useState<ExpeditionWithSlots[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchAllExpeditions = async () => {
@@ -18,6 +19,7 @@ const ExploreFeaturedAdventures = () => {
       setLoading(true);
 
       const { data: allExpeditions } = await axios.get("/api/expeditions");
+      console.log("All expeditions from EFA page:", allExpeditions.expeditions);
 
       if (allExpeditions.length === 0 || !allExpeditions)
         return toast.error("No, expeditions found");
@@ -42,6 +44,8 @@ const ExploreFeaturedAdventures = () => {
         new Date(a.departureDate).getTime() -
         new Date(b.departureDate).getTime(),
     )[0];
+
+  console.log(expeditions);
 
   return (
     <section className="my-12 bg-white ">

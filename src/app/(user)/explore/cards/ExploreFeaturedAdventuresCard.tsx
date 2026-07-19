@@ -1,6 +1,6 @@
 "use client";
 
-import { difficultyColors } from "@/lib/utils";
+// import { difficultyColors } from "@/lib/utils";
 import { Expedition } from "@/schema";
 import { toggleFavoritesStore } from "@/store/toggleFavoritesStore";
 import axios from "axios";
@@ -10,19 +10,20 @@ import { useRouter } from "next/navigation";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 
-interface ExploreFeaturedAdventuresCardProps {
-  hike: Expedition;
-}
+export type ExpeditionWithSlots = Expedition & { slotsLeft: number };
 
 const ExploreFeaturedAdventuresCard = ({
   hike,
-}: ExploreFeaturedAdventuresCardProps) => {
+}: {
+  hike: ExpeditionWithSlots;
+}) => {
   const router = useRouter();
 
-  const difficulty =
-    difficultyColors[
-      hike.difficulty.toLowerCase() as keyof typeof difficultyColors
-    ];
+  // console.log("Hike from the explore page:", hike);
+  // const difficulty =
+  //   difficultyColors[
+  //     hike.difficulty.toLowerCase() as keyof typeof difficultyColors
+  //   ];
 
   function getDuration(departureDate: string, returnDate: string) {
     const depDate = new Date(departureDate);
@@ -51,7 +52,7 @@ const ExploreFeaturedAdventuresCard = ({
           fill
         />
         <div
-          className={`absolute top-5 left-5 px-3 py-1 font-semibold text-sm ${difficulty.bg} ${difficulty.border} ${difficulty.text} rounded-xl`}
+          className={`absolute top-5 left-5 px-3 py-1 font-semibold text-sm text-primary rounded-xl`}
         >
           {hike.difficulty}
         </div>

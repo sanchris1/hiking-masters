@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "admin-Superhikers",
+  title: "admin-Trails and Memoirs",
   description: "New generation hikers website-admin",
 };
 const AdminLayout = async ({

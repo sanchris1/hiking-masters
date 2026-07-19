@@ -12,8 +12,9 @@ const ExploreDetailsPage = async ({
 
   const data = await getExpeditionDetails(exploreId);
 
-  if (!data || !data.expedition || !data.guide)
-    return <p className="">No details found</p>;
+  console.log(data);
+
+  if (!data) return <p className="">No details found</p>;
 
   return (
     <>

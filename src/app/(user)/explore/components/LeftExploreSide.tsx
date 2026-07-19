@@ -1,11 +1,11 @@
-import { Expedition } from "@/schema";
 import Image from "next/image";
 import { Backpack, Dumbbell, Leaf } from "lucide-react";
+import { ExpeditionWithSlots } from "../cards/ExploreFeaturedAdventuresCard";
 
 const LeftExploreSide = ({
   upcomingExpedition,
 }: {
-  upcomingExpedition: Expedition;
+  upcomingExpedition: ExpeditionWithSlots;
 }) => {
   if (!upcomingExpedition) return null;
   const explorersHandbook = [

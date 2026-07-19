@@ -39,6 +39,8 @@ const BookingPage = async ({
 
   const expedition = await getExpeditionDetails(hikeId);
 
+  console.log("Expedition from db:", expedition);
+
   if (!expedition) return null;
 
   return (
@@ -168,7 +170,7 @@ const BookingPage = async ({
                 <GoPeople />{" "}
                 {expedition.expedition.capacity -
                   expedition.expedition.slotsLeft}{" "}
-                slots taken | {expedition.expedition.slotsLeft} left
+                slot(s) taken | {expedition.expedition.slotsLeft} left
               </span>
 
               <div className="w-full h-0.5 rounded-full bg-primary " />

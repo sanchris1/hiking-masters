@@ -3,18 +3,18 @@
 
 import Button from "@/app/ui/Button";
 import { useEffect, useState } from "react";
-import { Expedition } from "@/schema";
 import axios from "axios";
 import toast from "react-hot-toast";
 import FeaturedExpeditionsCard from "./FeaturedExpeditionsCard";
 import { useRouter } from "next/navigation";
+import { ExpeditionWithGuideAndSchedule } from "@/app/admin/expeditions/page";
 
 const FeaturedExpeditions = () => {
   //okay i am thinking of what to display here
   const [loading, setLoading] = useState(false);
-  const [featuredExpeditions, setFeaturedExpeditions] = useState<Expedition[]>(
-    [],
-  );
+  const [featuredExpeditions, setFeaturedExpeditions] = useState<
+    ExpeditionWithGuideAndSchedule[]
+  >([]);
   const router = useRouter();
   async function fetchFeaturedExpeditions() {
     try {
@@ -38,6 +38,8 @@ const FeaturedExpeditions = () => {
   useEffect(() => {
     fetchFeaturedExpeditions();
   }, []);
+
+  console.log(featuredExpeditions);
 
   return (
     <section className="bg-surface-50  py-12">
@@ -63,7 +65,7 @@ const FeaturedExpeditions = () => {
         {loading && <p className="">Loading expeditions...</p>}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-5">
           {featuredExpeditions.map((hike) => (
-            <FeaturedExpeditionsCard key={hike.id} hike={hike} />
+            <FeaturedExpeditionsCard key={hike.expedition.id} hike={hike} />
           ))}
         </div>
       </div>

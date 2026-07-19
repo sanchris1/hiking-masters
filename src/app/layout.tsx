@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Superhikers",
+  title: "Trails and Memoirs",
   description: "New generation hikers website",
 };
 

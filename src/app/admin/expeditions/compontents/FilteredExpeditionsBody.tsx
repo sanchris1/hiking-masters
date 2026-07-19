@@ -91,13 +91,12 @@ const FilteredExpeditionsBody = ({
             <div
               className="h-full rounded-full bg-primary"
               style={{
-                width: `${((expedition.expedition.capacity - expedition.expedition.slotsLeft) / expedition.expedition.capacity) * 100}%`,
+                width: `${((expedition.expedition.capacity - expedition.slotsLeft) / expedition.expedition.capacity) * 100}%`,
               }}
             />
           </div>
           <p className="text-xs text-secondary">
-            {expedition.expedition.slotsLeft}/{expedition.expedition.capacity}{" "}
-            left
+            {expedition.slotsLeft}/{expedition.expedition.capacity} left
           </p>
         </div>
       </td>
