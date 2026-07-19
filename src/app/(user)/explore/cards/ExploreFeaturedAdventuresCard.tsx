@@ -1,6 +1,6 @@
 "use client";
 
-// import { difficultyColors } from "@/lib/utils";
+import { difficultyColors } from "@/lib/utils";
 import { Expedition } from "@/schema";
 import { toggleFavoritesStore } from "@/store/toggleFavoritesStore";
 import axios from "axios";
@@ -19,11 +19,10 @@ const ExploreFeaturedAdventuresCard = ({
 }) => {
   const router = useRouter();
 
-  // console.log("Hike from the explore page:", hike);
-  // const difficulty =
-  //   difficultyColors[
-  //     hike.difficulty.toLowerCase() as keyof typeof difficultyColors
-  //   ];
+  const difficulty =
+    difficultyColors[
+      hike.difficulty.toLowerCase() as keyof typeof difficultyColors
+    ];
 
   function getDuration(departureDate: string, returnDate: string) {
     const depDate = new Date(departureDate);
@@ -51,11 +50,11 @@ const ExploreFeaturedAdventuresCard = ({
           src={hike.image}
           fill
         />
-        <div
-          className={`absolute top-5 left-5 px-3 py-1 font-semibold text-sm text-primary rounded-xl`}
+        <span
+          className={`absolute top-4 left-4 rounded-2xl px-3 py-0.5 text-sm font-medium ${difficulty.bg} ${difficulty.border} ${difficulty.text}`}
         >
           {hike.difficulty}
-        </div>
+        </span>
       </div>
       <div className="ml-3 mt-4 space-y-3">
         <div className="flex items-center justify-between gap-8">
