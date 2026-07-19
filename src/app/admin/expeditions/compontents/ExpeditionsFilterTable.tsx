@@ -1,14 +1,14 @@
 "use client";
 
-import { UpcomingExpedition } from "@/types/types";
 import FilteredExpeditionsBody from "./FilteredExpeditionsBody";
 import { useState } from "react";
 import ActionButtonComponent from "../../components/ActionButtonComponent";
+import { ExpeditionWithGuideAndSchedule } from "../page";
 
 const ExpeditionsFilterTable = ({
   filteredExpeditions,
 }: {
-  filteredExpeditions: UpcomingExpedition[];
+  filteredExpeditions: ExpeditionWithGuideAndSchedule[];
 }) => {
   const expeditionTableFilterHeaders = [
     { title: "Expeditions", width: "w-[300px]" },
@@ -23,13 +23,13 @@ const ExpeditionsFilterTable = ({
   // opening the drop down
 
   const [selectedExpedition, setSelectedExpedition] =
-    useState<UpcomingExpedition | null>(null);
+    useState<ExpeditionWithGuideAndSchedule | null>(null);
 
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
   const handleOpenActionMenu = (
     event: React.MouseEvent<HTMLButtonElement>,
-    expedition: UpcomingExpedition,
+    expedition: ExpeditionWithGuideAndSchedule,
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
@@ -59,14 +59,14 @@ const ExpeditionsFilterTable = ({
         <tbody className="bg-surface-50 ">
           {filteredExpeditions.map((expedition) => (
             <FilteredExpeditionsBody
-              key={expedition.id}
+              key={expedition.expedition.id}
               expedition={expedition}
               handleOpenActionMenu={handleOpenActionMenu}
             />
           ))}
         </tbody>
       </table>
-      {selectedExpedition && (
+      {selectedExpedition?.expedition && (
         <ActionButtonComponent
           onClose={() => setSelectedExpedition(null)}
           position={menuPosition}

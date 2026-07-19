@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { UpcomingExpedition } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { BsCopy, BsEye, BsTrash } from "react-icons/bs";
 import { FiArchive, FiEdit } from "react-icons/fi";
+import { ExpeditionWithGuideAndSchedule } from "../expeditions/page";
 
 const ActionButtonComponent = ({
   position,
@@ -13,8 +13,8 @@ const ActionButtonComponent = ({
   onClose,
 }: {
   position: Record<string, number>;
-  expedition: UpcomingExpedition;
-  onClose: (expedition: UpcomingExpedition | null) => void;
+  expedition: ExpeditionWithGuideAndSchedule;
+  onClose: (expedition: ExpeditionWithGuideAndSchedule | null) => void;
 }) => {
   const router = useRouter();
 
@@ -27,7 +27,8 @@ const ActionButtonComponent = ({
     {
       label: "Edit Expedition",
       icon: FiEdit,
-      onClick: () => router.push(`/admin/expeditions/${expedition.id}/edit`),
+      onClick: () =>
+        router.push(`/admin/expeditions/${expedition.expedition.id}/edit`),
     },
     {
       label: "Duplicate",
@@ -73,7 +74,7 @@ const ActionButtonComponent = ({
       <div className="space-y-5">
         <div className="">
           <h3 className="text-primary text-[15px] max-w-xs font-bold tracking-wide">
-            {expedition.title}
+            {expedition.expedition.title}
           </h3>
           <span className="text-xs text-red-600 bg-red-100 rounded-full px-2 py-0.5 border border-red-600">
             Action Dropdown

@@ -2,8 +2,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { dummyUpcomingExpeditions } from "@/items/experditions";
-import { UpcomingExpedition } from "@/types/types";
 import { useEffect, useState } from "react";
 import { BiFilter, BiPlus, BiReset, BiUser } from "react-icons/bi";
 import { BsWatch } from "react-icons/bs";
@@ -16,23 +14,50 @@ import {
   difficultyLevels,
   statuses,
 } from "./compontents/ExpeditionEditor";
+import axios from "axios";
+import { Expedition, Guide, Schedule, User } from "@/schema";
+import toast from "react-hot-toast";
+
+export type ExpeditionWithGuideAndSchedule = {
+  expedition: Expedition;
+  guide: Guide;
+  schedule: Schedule;
+  user: User;
+};
 
 const ExpeditionsPage = () => {
   const [difficulty, setDifficulty] = useState("");
   const [categoriesInput, setCategoriesInput] = useState("");
   const [status, setStatus] = useState("");
   const [departureDate, setDepartureDate] = useState("");
+  const [expeditionWithGuide, setExpeditionWithGuide] = useState<
+    ExpeditionWithGuideAndSchedule[]
+  >([]);
   const [filteredExpeditions, setFilteredExpeditions] = useState<
-    UpcomingExpedition[] | null
+    ExpeditionWithGuideAndSchedule[] | null
   >(null);
 
   const router = useRouter();
 
   const today = new Date();
 
+  useEffect(() => {
+    axios
+      .get("/api/admin/expeditions")
+      .then(({ data }) => {
+        console.log("API Response:", data);
+
+        setExpeditionWithGuide(data.expeditions ?? []);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      });
+  }, []);
+
   const expeditionsThisMonth =
-    dummyUpcomingExpeditions.filter((expedition) => {
-      const departure = new Date(expedition.departureDate);
+    expeditionWithGuide.filter((expedition) => {
+      const departure = new Date(expedition.expedition.departureDate);
 
       return (
         departure.getMonth() === today.getMonth() &&
@@ -40,9 +65,10 @@ const ExpeditionsPage = () => {
       );
     }).length ?? 0;
 
-  const totalExpeditions = dummyUpcomingExpeditions.length;
+  const totalExpeditions = expeditionWithGuide.length;
   const fullyBooked =
-    dummyUpcomingExpeditions.filter((exp) => exp.slotsLeft === 0).length ?? 0;
+    expeditionWithGuide.filter((exp) => exp.expedition.slotsLeft === 0)
+      .length ?? 0;
   const revenueGenerated = 142850;
 
   const expeditionsStats = [
@@ -78,23 +104,23 @@ const ExpeditionsPage = () => {
   const minDate = tomorrow.toISOString().split("T").at(0);
 
   const handleApplyFilters = () => {
-    const newFilteredExpeditions = dummyUpcomingExpeditions.filter(
-      (expedition) => {
-        const matchesDifficulty =
-          !difficulty || expedition.difficulty === difficulty;
-        const matchesStatus = !status || expedition.status === status;
-        const matchesDate =
-          !departureDate || expedition.departureDate === departureDate;
-        return matchesDate && matchesDifficulty && matchesStatus;
-      },
-    );
+    const newFilteredExpeditions = expeditionWithGuide.filter((expedition) => {
+      const matchesDifficulty =
+        !difficulty ||
+        expedition.expedition.difficulty === difficulty.toLowerCase();
+      const matchesStatus =
+        !status || expedition.expedition.status === status.toLowerCase();
+      const matchesDate =
+        !departureDate || expedition.expedition.departureDate === departureDate;
+      return matchesDate && matchesDifficulty && matchesStatus;
+    });
 
     return setFilteredExpeditions(newFilteredExpeditions);
   };
 
   useEffect(() => {
     handleApplyFilters();
-  }, [difficulty, status, departureDate]);
+  }, [difficulty, status, departureDate, expeditionWithGuide]);
 
   const handleResetFilters = () => {
     setDifficulty("");
@@ -102,6 +128,10 @@ const ExpeditionsPage = () => {
     setStatus("");
     setCategoriesInput("");
   };
+
+  useEffect(() => {
+    console.log("Filtered expeditions:", filteredExpeditions);
+  }, [filteredExpeditions]);
 
   return (
     <div className="mx-3 my-5 space-y-8">
