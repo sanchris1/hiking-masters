@@ -21,5 +21,7 @@ export async function GET() {
     .leftJoin(userProfile, eq(user.id, userProfile.userId))
     .leftJoin(guide, eq(user.id, guide.userId));
 
+  console.log("All users from the db", allUsers);
+
   return NextResponse.json({ users: allUsers });
 }

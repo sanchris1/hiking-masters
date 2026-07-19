@@ -1,0 +1,2 @@
+CREATE UNIQUE INDEX "booking_user_expedition_unique" ON "booking" USING btree ("expedition_id","user_id");--> statement-breakpoint
+ALTER TABLE "user_profile" ADD CONSTRAINT "user_profile_user_id_unique" UNIQUE("user_id");

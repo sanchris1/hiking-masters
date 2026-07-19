@@ -105,7 +105,6 @@ export const expedition = pgTable(
     description: t.varchar("description").notNull(),
     tagline: t.varchar("tagline").notNull(),
     location: t.varchar("location").notNull(),
-    slotsLeft: t.integer("slots_left").notNull().default(0),
     distanceFromNairobi: t.integer("distanceFromNairobi").notNull(),
     createdAt: t
       .timestamp("createdAt", { withTimezone: true })
@@ -163,6 +162,7 @@ export const userProfile = pgTable("user_profile", {
   userId: t
     .text("user_id")
     .notNull()
+    .unique()
     .references(() => user.id, { onDelete: "cascade" }),
   phoneNumber: t.varchar("phoneNumber", { length: 255 }),
   gender: GenderEnum("gender"),
@@ -184,6 +184,7 @@ export const booking = pgTable(
       .text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
+    participants: t.integer("participants").notNull().default(1),
     expeditionId: t
       .uuid("expedition_id")
       .notNull()

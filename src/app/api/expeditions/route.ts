@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../utils/auth";
 import { db } from "@/config/db";
-import { expedition, guide, schedule } from "@/schema";
+import { booking, expedition, guide, schedule } from "@/schema";
 import { uploadToCloudinary } from "@/helpers/uploadToCloudinary";
 import { headers } from "next/headers";
+import { eq, sql } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
   const currentUser = await auth.api.getSession({
@@ -103,7 +104,19 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  const allExpeditions = await db.select().from(expedition);
+  const expeditions = await db
+    .select({
+      expedition,
+      bookedParticipants: sql<number>`COALESCE(SUM(${booking.participants}),0)`,
+    })
+    .from(expedition)
+    .leftJoin(booking, eq(expedition.id, booking.expeditionId))
+    .groupBy(expedition.id);
 
-  return NextResponse.json({ expeditions: allExpeditions });
+  const result = expeditions.map((exp) => ({
+    ...exp.expedition,
+    slotsLeft: exp.expedition.capacity - exp.bookedParticipants,
+  }));
+
+  return NextResponse.json({ expeditions: result });
 }

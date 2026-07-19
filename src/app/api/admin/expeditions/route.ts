@@ -2,8 +2,8 @@ import { headers } from "next/headers";
 import { auth } from "../../../../../utils/auth";
 import { NextResponse } from "next/server";
 import { db } from "@/config/db";
-import { expedition, guide, schedule, user } from "@/schema";
-import { eq } from "drizzle-orm";
+import { booking, expedition, guide, schedule, user } from "@/schema";
+import { eq, sql } from "drizzle-orm";
 
 export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -13,11 +13,21 @@ export async function GET() {
   }
 
   const allExpeditions = await db
-    .select()
+    .select({
+      expedition,
+      bookedParticipants: sql<number>`COALESCE(SUM(${booking.participants}),0)`,
+    })
     .from(expedition)
+    .leftJoin(booking, eq(expedition.id, booking.expeditionId))
+    .groupBy(expedition.id)
     .leftJoin(guide, eq(expedition.id, guide.expeditionId))
     .leftJoin(user, eq(guide.userId, user.id))
     .leftJoin(schedule, eq(schedule.expeditionId, expedition.id));
 
-  return NextResponse.json({ expeditions: allExpeditions });
+  const results = allExpeditions.map((exp) => ({
+    ...exp,
+    slotsLeft: exp.expedition.capacity - exp.bookedParticipants,
+  }));
+
+  return NextResponse.json({ expeditions: results });
 }
