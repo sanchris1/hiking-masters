@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
@@ -11,7 +10,7 @@ import { FaDoorOpen } from "react-icons/fa6";
 import ExpeditionsFilterTable from "./compontents/ExpeditionsFilterTable";
 import { useRouter } from "next/navigation";
 import {
-  categories,
+  categoriesWithValues,
   difficultyLevels,
   statuses,
 } from "./compontents/ExpeditionEditor";
@@ -111,9 +110,14 @@ const ExpeditionsPage = () => {
         expedition.expedition.difficulty === difficulty.toLowerCase();
       const matchesStatus =
         !status || expedition.expedition.status === status.toLowerCase();
+      const matchesCategory =
+        !categoriesInput ||
+        expedition.expedition.category === categoriesInput.toLowerCase();
       const matchesDate =
         !departureDate || expedition.expedition.departureDate === departureDate;
-      return matchesDate && matchesDifficulty && matchesStatus;
+      return (
+        matchesDate && matchesDifficulty && matchesStatus && matchesCategory
+      );
     });
 
     return setFilteredExpeditions(newFilteredExpeditions);
@@ -234,7 +238,7 @@ const ExpeditionsPage = () => {
                   onChange={(e) => setCategoriesInput(e.target.value)}
                 >
                   <option value="">All Categories</option>
-                  {categories.map((cat) => (
+                  {categoriesWithValues.map((cat) => (
                     <option value={cat.label} key={cat.label}>
                       {cat.label}
                     </option>

@@ -31,13 +31,21 @@ export const statuses = [
 ];
 
 export const categories = [
-  { label: "Draft", value: "draft" },
-  { label: "Published", value: "published" },
-  { label: "Open for Booking", value: "open" },
-  { label: "Fully Booked", value: "full" },
-  { label: "Completed", value: "completed" },
-  { label: "Cancelled", value: "cancelled" },
+  "Mountain Hiking",
+  "Forest Hiking",
+  "Day Hike",
+  "Weekend Adventure",
+  "Multi-Day Trek",
+  "Summit Expedition",
+  "Camping Adventure",
+  "Nature Walk",
+  "Fitness Challenge",
+  "Photography Tour",
 ];
+
+export const categoriesWithValues = categories.map((cat) => {
+  return { label: cat, value: cat.toLowerCase() };
+});
 
 const ExpeditionEditor = ({
   initialValues,
@@ -131,7 +139,7 @@ const ExpeditionEditor = ({
       name: "category",
       type: "select",
       colSpan: 1,
-      options: categories,
+      options: categoriesWithValues,
     },
   ];
 
