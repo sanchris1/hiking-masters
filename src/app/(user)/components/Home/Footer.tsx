@@ -33,7 +33,7 @@ const Footer = () => {
           ))}
         </div>
         <p className="text-gray-600 font-medium text-sm text-center mt-8">
-          &copy; {new Date().getFullYear()} Trains and Memoirs. All rights
+          &copy; {new Date().getFullYear()} Trails and Memoirs. All rights
           reserved
         </p>
       </div>
