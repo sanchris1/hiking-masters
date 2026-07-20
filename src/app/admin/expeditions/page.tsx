@@ -234,12 +234,12 @@ const ExpeditionsPage = () => {
                 </label>
                 <select
                   className="w-full bg-surface-200 rounded-xl px-4 focus:border-primary border border-transparent py-3"
-                  value={status}
+                  value={categoriesInput}
                   onChange={(e) => setCategoriesInput(e.target.value)}
                 >
                   <option value="">All Categories</option>
                   {categoriesWithValues.map((cat) => (
-                    <option value={cat.label} key={cat.label}>
+                    <option value={cat.value} key={cat.value}>
                       {cat.label}
                     </option>
                   ))}
