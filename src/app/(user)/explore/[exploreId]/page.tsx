@@ -14,7 +14,7 @@ const ExploreDetailsPage = async ({
 
   console.log(data);
 
-  if (!data) return <p className="">No details found</p>;
+  if (!data || !data.guide) return <p className="">No details found</p>;
 
   return (
     <>
