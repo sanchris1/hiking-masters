@@ -2,10 +2,10 @@
 import UpcomingExpeditionCard from "./UpcomingExpeditionCard";
 import axios from "axios";
 import { useState } from "react";
-import { Expedition } from "@/schema";
+import { ExpeditionWithSlotsLeft } from "../[exploreId]/components/ExploreDetailsHero";
 
 const UpcomingExpeditions = () => {
-  const [expedition, setExpedition] = useState<Expedition[]>([]);
+  const [expedition, setExpedition] = useState<ExpeditionWithSlotsLeft[]>([]);
 
   axios
     .get("/api/expeditions")

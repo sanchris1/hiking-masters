@@ -1,9 +1,13 @@
 "use client";
 
-import { Expedition } from "@/schema";
 import { useRouter } from "next/navigation";
+import { ExpeditionWithSlotsLeft } from "../[exploreId]/components/ExploreDetailsHero";
 
-const UpcomingExpeditionCard = ({ expedition }: { expedition: Expedition }) => {
+const UpcomingExpeditionCard = ({
+  expedition,
+}: {
+  expedition: ExpeditionWithSlotsLeft;
+}) => {
   const router = useRouter();
   const date = expedition.departureDate;
   const formattedDate = new Date(date).toLocaleDateString("en-GB", {
