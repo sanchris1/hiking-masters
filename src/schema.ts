@@ -162,6 +162,7 @@ export const userProfile = pgTable("user_profile", {
   userId: t
     .text("user_id")
     .notNull()
+    .primaryKey()
     .references(() => user.id, { onDelete: "cascade" }),
   phoneNumber: t.varchar("phoneNumber", { length: 255 }),
   gender: GenderEnum("gender"),
@@ -270,3 +271,4 @@ export type UserProfile = InferSelectModel<typeof userProfile>;
 export type Guide = InferSelectModel<typeof guide>;
 export type Expedition = InferSelectModel<typeof expedition>;
 export type Schedule = InferSelectModel<typeof schedule>;
+export type Booking = InferSelectModel<typeof booking>;

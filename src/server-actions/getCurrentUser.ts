@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { auth } from "../../utils/auth";
 import { eq } from "drizzle-orm";
-import { user } from "@/schema";
+import { user, userProfile } from "@/schema";
 import { db } from "@/config/db";
 
 export const getCurrentUser = async () => {
@@ -14,7 +14,8 @@ export const getCurrentUser = async () => {
   const [currentUser] = await db
     .select()
     .from(user)
-    .where(eq(user.id, session.user?.id));
+    .where(eq(user.id, session.user?.id))
+    .leftJoin(userProfile, eq(user.id, userProfile.userId));
 
   return currentUser ?? null;
 };
