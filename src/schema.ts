@@ -184,7 +184,7 @@ export const booking = pgTable(
       .text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    participants: t.integer("participants").notNull().default(1),
+    participants: t.integer("participants").notNull(),
     expeditionId: t
       .uuid("expedition_id")
       .notNull()

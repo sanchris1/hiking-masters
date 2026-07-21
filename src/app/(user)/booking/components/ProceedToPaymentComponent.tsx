@@ -14,8 +14,10 @@ type ProceedToPaymentComponentProps = NonNullable<
 >;
 
 const ProceedToPaymentComponent = ({
+  isBooked,
   expedition,
 }: {
+  isBooked: boolean;
   expedition: ProceedToPaymentComponentProps;
 }) => {
   const { participants } = useParticipantsStore((state) => state);
@@ -32,6 +34,11 @@ const ProceedToPaymentComponent = ({
         />
       </div>
       <div className="px-4 space-y-4">
+        {isBooked && (
+          <span className="text-sm font-semibold text-red-600 ">
+            You have Booked this expedition
+          </span>
+        )}
         <h3 className="text-2xl font-semibold text-primary tracking-wide leading-relaxed">
           {expedition.expedition.title}
         </h3>
@@ -70,7 +77,10 @@ const ProceedToPaymentComponent = ({
           </div>
 
           <div className="w-full h-0.5 rounded-full bg-primary my-1" />
-          <ProceedToPaymentButton expeditionId={expedition.expedition.id} />
+          <ProceedToPaymentButton
+            isBooked={isBooked}
+            expeditionId={expedition.expedition.id}
+          />
         </div>
       </div>
     </div>

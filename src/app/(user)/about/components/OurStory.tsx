@@ -35,7 +35,7 @@ const OurStory = () => {
             As our passion grew, so did the number of friends, families, and
             fellow adventurers joining our hikes. Today,{" "}
             <span className="font-semibold text-primary">
-              Super Hikers{" "}
+              Trails and Memoirs{" "}
             </span>{" "}
             exists to share that same spirit of exploration by creating safe,
             professionally guided experiences that help people discover the

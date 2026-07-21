@@ -9,6 +9,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/server-actions/getCurrentUser";
 import ProceedToPaymentComponent from "../components/ProceedToPaymentComponent";
+import { getCurrentUserBookings } from "@/server-actions/getCurrentUserBookings";
 
 const BookingPage = async ({
   params,
@@ -32,8 +33,11 @@ const BookingPage = async ({
   const user = await getCurrentUser();
 
   const expedition = await getExpeditionDetails(hikeId);
+  const userBookings = await getCurrentUserBookings();
 
-  console.log("Expedition from db:", expedition);
+  const isBooked = userBookings.some(
+    (booking) => booking.booking.expeditionId === hikeId,
+  );
 
   if (!expedition) return null;
 
@@ -42,12 +46,20 @@ const BookingPage = async ({
       <div className="p-5  max-w-6xl mx-auto bg-surface-50/5 flex flex-col lg:flex-row gap-8 ">
         <div className="w-full lg:w-5/8 ">
           <BackButton />
-          <h2 className="text-3xl font-semibold text-primary leading-relaxed tracking-wide">
-            Complete your booking
-          </h2>
-          <p className="text-sm  text-secondary">
-            You&apos;re just one step away from your next adventure
-          </p>
+          {isBooked ? (
+            <span className="text-lg font-semibold text-red-600  ml-2">
+              You have Booked This Expedition
+            </span>
+          ) : (
+            <h2 className="text-3xl font-semibold text-primary leading-relaxed tracking-wide">
+              Complete your booking
+            </h2>
+          )}
+          {!isBooked && (
+            <p className="text-sm  text-secondary">
+              You&apos;re just one step away from your next adventure
+            </p>
+          )}
           <div className="my-12 space-y-5">
             <div className="flex gap-3 items-center">
               <span className="w-5 h-4 flex items-center justify-center  rounded-full bg-primary text-[10px] font-medium p-0.5 text-surface-50 ">
@@ -128,7 +140,10 @@ const BookingPage = async ({
             </div>
           </div>
         </div>
-        <ProceedToPaymentComponent expedition={expedition} />
+        <ProceedToPaymentComponent
+          isBooked={isBooked}
+          expedition={expedition}
+        />
       </div>
     </section>
   );

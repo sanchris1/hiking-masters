@@ -37,7 +37,6 @@ const ContactPage = () => {
   };
 
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,11 +56,10 @@ const ContactPage = () => {
     });
 
     const data = await response.json();
-    setResult(data.success ? "Success" : "Error");
     if (data.success) {
-      toast.success(result || "Message sent successfully");
+      toast.success("Message sent successfully");
     } else {
-      toast.error(result || " Error sending the message");
+      toast.error(" Error sending the message");
     }
     setLoading(false);
     setValues(initialValues);
