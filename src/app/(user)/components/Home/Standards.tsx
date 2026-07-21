@@ -31,11 +31,12 @@ const Standards = () => {
           {/* Image */}
           <div className="relative w-full lg:w-1/2 h-120 rounded-2xl overflow-hidden">
             <Image
-              src="/journey.png"
+              src="/hike-1.jpg"
               alt="Features"
               fill
               className="object-cover rounded-lg"
             />
+            <div className="absolute inset-0 bg-primary/50" />
           </div>
 
           {/* Content */}

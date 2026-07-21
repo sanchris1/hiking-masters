@@ -11,7 +11,7 @@ const Hero = () => {
   return (
     <section className="relative w-full h-screen ">
       <Image
-        src={"/happy.jpg"}
+        src={"/hike-3.jpg"}
         alt="nature image"
         fill
         className="object-cover "

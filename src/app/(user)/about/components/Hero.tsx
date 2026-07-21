@@ -25,7 +25,7 @@ const AboutPageHero = () => {
     <header className="w-full h-screen relative border border-b ">
       <Image
         alt="about-us-hero-image"
-        src={"/about/about-hero.png"}
+        src={"/hike-4.jpg"}
         fill
         className="object-cover"
       />

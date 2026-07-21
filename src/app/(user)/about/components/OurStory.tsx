@@ -11,7 +11,7 @@ const OurStory = () => {
               alt="story-image"
               fill
               className="object-cover"
-              src={"/about/story.png"}
+              src={"/hike-5.jpg"}
             />
           </div>
         </div>
