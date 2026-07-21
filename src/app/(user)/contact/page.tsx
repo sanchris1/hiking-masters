@@ -115,9 +115,18 @@ const ContactPage = () => {
                 placeholder="Write your message."
                 onChange={handleChange}
               />
-              <Button className="" type="submit">
-                {loading ? <ButtonLoading /> : "Submit"}
-              </Button>
+              <div className="flex items-center gap-3">
+                <Button className="" type="submit">
+                  {loading ? <ButtonLoading /> : "Submit"}
+                </Button>
+                <button
+                  className="px-4 py-2 cursor-pointer rounded-lg bg-primary text-white font-medium text-sm"
+                  type="button"
+                  onClick={() => setValues(initialValues)}
+                >
+                  Clear Inputs
+                </button>
+              </div>
             </form>
           </div>
 
