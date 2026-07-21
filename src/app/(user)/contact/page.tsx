@@ -58,8 +58,13 @@ const ContactPage = () => {
 
     const data = await response.json();
     setResult(data.success ? "Success" : "Error");
-    toast.success(result);
+    if (data.success) {
+      toast.success(result || "Message sent successfully");
+    } else {
+      toast.error(result || " Error sending the message");
+    }
     setLoading(false);
+    setValues(initialValues);
   };
 
   return (
