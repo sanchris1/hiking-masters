@@ -89,7 +89,7 @@ export const socialMediaLinks = [
   {
     name: "Instagram",
     icon: FaInstagram,
-    href: "https://instagram.com/summitseekers",
+    href: "https://www.instagram.com/trails_and_memoirs",
     iconColor: "text-[#E4405F]",
     backgroundColor: "bg-[#E4405F]/10",
     hoverColor: "hover:bg-[#E4405F]/20",
@@ -97,7 +97,7 @@ export const socialMediaLinks = [
   {
     name: "TikTok",
     icon: FaTiktok,
-    href: "https://tiktok.com/@summitseekers",
+    href: "https://tiktok.com/@trails_and_memoirs",
     iconColor: "text-[#111827]",
     backgroundColor: "bg-slate-900/10",
     hoverColor: "hover:bg-slate-900/20",
@@ -105,7 +105,7 @@ export const socialMediaLinks = [
   {
     name: "Facebook",
     icon: FaFacebook,
-    href: "https://facebook.com/summitseekers",
+    href: "https://facebook.com/trails_and_memoirs",
     iconColor: "text-[#1877F2]",
     backgroundColor: "bg-[#1877F2]/10",
     hoverColor: "hover:bg-[#1877F2]/20",
@@ -113,7 +113,7 @@ export const socialMediaLinks = [
   {
     name: "X",
     icon: FaXTwitter,
-    href: "https://x.com/summitseekers",
+    href: "https://x.com/trails_and_memoirs",
     iconColor: "text-black dark:text-white",
     backgroundColor: "bg-black/10 dark:bg-white/10",
     hoverColor: "hover:bg-black/20 dark:hover:bg-white/20",
