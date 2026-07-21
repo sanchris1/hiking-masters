@@ -1,5 +1,6 @@
 import { footerSections } from "@/items/footer";
 import Logo from "../logo/Logo";
+import SocialMediaComponent from "@/components/SocialMedia";
 
 const Footer = () => {
   return (
@@ -12,6 +13,7 @@ const Footer = () => {
               &quot;The mountains are calling, and i must go&quot;
               <br /> --John Muir
             </p>
+            <SocialMediaComponent />
           </div>
           {footerSections.map((section, index) => (
             <div key={index} className="space-y-5">

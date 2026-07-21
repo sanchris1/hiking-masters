@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/ui/Button";
+import SocialMediaComponent from "@/components/SocialMedia";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -36,7 +37,7 @@ const Hero = () => {
             bring the spirit.
           </p>
           {/* buttons */}
-
+          <SocialMediaComponent />
           <div className="flex items-center gap-5 lg:gap-8">
             <Button
               className=""
