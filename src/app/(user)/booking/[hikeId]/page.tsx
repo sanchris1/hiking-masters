@@ -122,7 +122,7 @@ const BookingPage = async ({
                       {expedition.schedule?.meetingPoint}
                     </p>
                   </div>
-                  <ChangeParticipantsComponent exp={expedition.expedition} />
+                  <ChangeParticipantsComponent exp={expedition} />
                 </div>
               </div>
             </div>
