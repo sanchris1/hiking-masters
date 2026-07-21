@@ -2,27 +2,10 @@
 
 import Button from "@/app/ui/Button";
 import InputComponent from "@/app/ui/Input";
+import ButtonLoading from "@/components/ButtonLoading";
+import { contactSections } from "@/items/data";
 import { useState } from "react";
-import { BiLocationPlus, BiPhone } from "react-icons/bi";
-import { CgMail } from "react-icons/cg";
-
-const campingContactInfo = [
-  {
-    icon: BiPhone,
-    title: "Phone",
-    means: "+25412345678",
-  },
-  {
-    icon: CgMail,
-    title: "Email",
-    means: "contact.mail@gmail.com",
-  },
-  {
-    icon: BiLocationPlus,
-    title: "Location",
-    means: "Nairobi, Kenya",
-  },
-];
+import toast from "react-hot-toast";
 
 const ContactPage = () => {
   const initialValues = {
@@ -53,13 +36,39 @@ const ContactPage = () => {
     return newStringArray.join(" ");
   };
 
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState("");
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData();
+
+    formData.append("access_key", "26fe9448-5757-4de6-a07a-e421a4d93414");
+
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("subject", values.subject);
+    formData.append("message", values.message);
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+    setResult(data.success ? "Success" : "Error");
+    toast.success(result);
+    setLoading(false);
+  };
+
   return (
     <section className="bg-surface-50 ">
       <div className="max-w-7xl mx-auto  p-5">
         <div className="flex items-center gap-6 flex-col lg:flex-row  p-8 shadow-lg rounded-xl">
           {/* contact input  section*/}
 
-          <div className="w-full lg:w-2/3 bg-text-accent/30 rounded-lg p-4">
+          <div className="w-full lg:w-5/8 bg-text-accent/30 rounded-lg p-4">
             {/* heading section */}
             <div className="my-3 space-y-2">
               <h4 className="text-2xl  font-semibold text-secondary">
@@ -70,7 +79,7 @@ const ContactPage = () => {
                 short while
               </p>
             </div>
-            <form className="space-y-5" action="">
+            <form className="space-y-5" onSubmit={onSubmit}>
               <div className="flex items-center gap-8 w-full  flex-col md:flex-row">
                 <InputComponent
                   name="name"
@@ -102,34 +111,42 @@ const ContactPage = () => {
                 onChange={handleChange}
               />
               <Button className="" type="submit">
-                Submit
+                {loading ? <ButtonLoading /> : "Submit"}
               </Button>
             </form>
           </div>
 
           {/* contact information */}
-          <div className="w-full lg:w-1/3 bg-text-accent/30 rounded-lg p-3 space-y-3">
-            <h4 className="text-xl  font-semibold text-secondary">
+          <div className="w-full lg:w-3/8 bg-primary rounded-lg p-3 space-y-3">
+            <h4 className="text-xl  font-semibold text-white ">
               {capitalizeStatement("Basic camping contact info")}
             </h4>
-            <div className="space-y-3 ">
-              {campingContactInfo.map((info) => (
-                <div
-                  className="flex gap-3 items-center p-1 bg-surface-50/20 rounded-sm"
-                  key={info.title}
-                >
-                  {/* icon */}
-                  <div className=" border border-border p-2 bg-secondary/80 text-surface-200 rounded-br-2xl rounded-tl-2xl">
-                    <info.icon className="size-8" />
+            <div className="grid grid-cols-2 gap-5">
+              {contactSections.map((section) => (
+                <div className="flex items-start gap-3" key={section.title}>
+                  <div className="text-white flex items-center justify-center p-1">
+                    <section.icon className="size-5" />
                   </div>
-                  {/* text */}
-                  <div className="">
-                    <p className=" text-surface-200 font-semibold text-lg">
-                      {info.title}
-                    </p>
-                    <span className="text-sm text-gray-600 font-medium">
-                      {info.means}
-                    </span>
+                  <div className="flex items-start flex-col gap-1">
+                    <h6 className="text-white font-semibold text-sm">
+                      {" "}
+                      {section.title}
+                    </h6>
+                    <div className="space-y-0.5">
+                      {section.contacts.map((item) => (
+                        <div key={item.label}>
+                          <h6 className="text-surface-200 font-medium text-[13px]">
+                            {item.label}
+                          </h6>
+                          <a
+                            href={item.href}
+                            className="text-surface-100 text-xs"
+                          >
+                            {item.value}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -12,7 +12,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import UserProfileDropdownMenu from "../UserProfileDropdownMenu";
 import { authClient } from "../../../../../utils/auth-client";
 
-export const myNavLinks = ["Home", "Explore", "About", "Contact"];
+export const myNavLinks = ["Home", "Explore", "About", "Gallery", "Contact"];
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -26,8 +26,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full  sticky top-0 left-0 right-0 shadow-lg z-50 bg-surface-50/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-5   ">
+      <div className="w-screen  sticky top-0 left-0 right-0 shadow-lg z-50 bg-surface-50/80 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto    ">
           <nav className=" flex items-center justify-between  lg:px-0 h-20">
             <Logo />
             {/* desktop nav links  */}

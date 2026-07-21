@@ -12,7 +12,7 @@ const ProfileLayout = async ({
     redirect("/login");
   }
 
-  return <>{children}</>;
+  return <div className="w-screen">{children}</div>;
 };
 
 export default ProfileLayout;
