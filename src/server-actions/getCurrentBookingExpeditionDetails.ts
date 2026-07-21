@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
 import { auth } from "../../utils/auth";
-import { NextResponse } from "next/server";
 import { db } from "@/config/db";
 import { booking, expedition } from "@/schema";
 import { and, desc, eq } from "drizzle-orm";
@@ -11,7 +10,7 @@ export async function getCurrentBookingExpeditionsDetails(
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session) {
-    return NextResponse.json({ message: "Authenticate please!!" });
+    return null;
   }
 
   const [bookedExpedition] = await db
