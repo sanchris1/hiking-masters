@@ -18,6 +18,8 @@ const CheckoutPage = async ({
 
   if (!bookedExpedition?.booking) return null;
 
+  // const token = await getAccessToken();
+
   return (
     <div className=" bg-surface-100 w-screen">
       <div className="max-w-7xl mx-auto  my-8">
