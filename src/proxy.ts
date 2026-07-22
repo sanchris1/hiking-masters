@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentSession } from "./server-actions/getCurrentSession";
+import { auth } from "../utils/auth";
 
 export async function proxy(request: NextRequest) {
-  const session = await getCurrentSession();
-  if (!session) return null;
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
 
   if (!session) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -17,5 +18,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/admin",
+  matcher: "/admin/:path",
 };
