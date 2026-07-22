@@ -8,7 +8,7 @@ const UserLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <StoreInitializer session={session} />
+      {/* <StoreInitializer session={session} /> */}
       {children}
       <Footer />
     </>
