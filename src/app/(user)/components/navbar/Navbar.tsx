@@ -12,7 +12,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import UserProfileDropdownMenu from "../UserProfileDropdownMenu";
 import { authClient } from "../../../../../utils/auth-client";
 
-export const myNavLinks = ["Home", "Explore", "About", "Gallery", "Contact"];
+export const myNavLinks = ["Home", "Explore", "About", "Contact"];
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
