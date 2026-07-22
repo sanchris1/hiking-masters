@@ -11,8 +11,6 @@ const CheckoutPage = async ({
 }) => {
   const { expeditionId } = await params;
 
-  console.log(expeditionId);
-
   const bookedExpedition =
     await getCurrentBookingExpeditionsDetails(expeditionId);
 
