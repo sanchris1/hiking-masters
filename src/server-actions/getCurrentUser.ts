@@ -1,15 +1,11 @@
-import { headers } from "next/headers";
-import { auth } from "../../utils/auth";
 import { eq } from "drizzle-orm";
 import { user, userProfile } from "@/schema";
 import { db } from "@/config/db";
+import { getCurrentSession } from "./getCurrentSession";
 
 export const getCurrentUser = async () => {
-  const session = await auth.api.getSession({ headers: await headers() });
-
-  if (!session?.user.id) {
-    return null;
-  }
+  const session = await getCurrentSession();
+  if (!session) return null;
 
   const [currentUser] = await db
     .select()

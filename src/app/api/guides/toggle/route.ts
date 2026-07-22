@@ -1,16 +1,15 @@
 import { user } from "@/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../../../../utils/auth";
 import { db } from "@/config/db";
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function PATCH(req: NextRequest) {
   const { userId } = await req.json();
 
   console.log("user id", userId);
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session || session.user.role !== "admin")
     return NextResponse.json({ message: "Unauthorized" });

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../../../../utils/auth";
-import { headers } from "next/headers";
+
 import { db } from "@/config/db";
 import { booking, userProfile } from "@/schema";
 import { and, eq } from "drizzle-orm";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function POST(request: NextRequest) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   const formData = await request.formData();
 

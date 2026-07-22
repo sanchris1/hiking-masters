@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "../../../../utils/auth";
-import { headers } from "next/headers";
 import { db } from "@/config/db";
 import { guide, user, userProfile } from "@/schema";
 import { eq } from "drizzle-orm";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function GET() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getCurrentSession();
 
   if (session?.user.role !== "admin")
     return NextResponse.json({ message: "Unauthorized" }, { status: 400 });

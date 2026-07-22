@@ -1,15 +1,11 @@
-import { headers } from "next/headers";
-import { auth } from "../../utils/auth";
 import { db } from "@/config/db";
 import { expedition, favorites } from "@/schema";
 import { eq } from "drizzle-orm";
+import { getCurrentSession } from "./getCurrentSession";
 
 export async function getUserFavoriteExpeditions() {
-  const session = await auth.api.getSession({ headers: await headers() });
-
-  if (!session?.user.id) {
-    return null;
-  }
+  const session = await getCurrentSession();
+  if (!session) return null;
 
   const fav = await db
     .select()

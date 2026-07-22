@@ -1,17 +1,13 @@
-import { headers } from "next/headers";
-import { auth } from "../../utils/auth";
 import { db } from "@/config/db";
 import { booking, expedition } from "@/schema";
 import { and, desc, eq } from "drizzle-orm";
+import { getCurrentSession } from "./getCurrentSession";
 
 export async function getCurrentBookingExpeditionsDetails(
   expeditionId: string,
 ) {
-  const session = await auth.api.getSession({ headers: await headers() });
-
-  if (!session) {
-    return null;
-  }
+  const session = await getCurrentSession();
+  if (!session) return null;
 
   const [bookedExpedition] = await db
     .select()

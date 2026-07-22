@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../../../utils/auth";
 import { db } from "@/config/db";
 import { booking, expedition, guide, schedule } from "@/schema";
 import { uploadToCloudinary } from "@/helpers/uploadToCloudinary";
-import { headers } from "next/headers";
 import { eq, sql } from "drizzle-orm";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function POST(req: NextRequest) {
-  const currentUser = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const currentUser = await getCurrentSession();
 
   if (!currentUser || currentUser.user.role !== "admin") {
     return NextResponse.json({ message: "Unauthorized!!" });

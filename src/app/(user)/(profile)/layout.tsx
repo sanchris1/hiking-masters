@@ -1,13 +1,12 @@
-import { headers } from "next/headers";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 import { redirect } from "next/navigation";
-import { auth } from "../../../../utils/auth";
 
 const ProfileLayout = async ({
   children,
 }: {
   children: Readonly<React.ReactNode>;
 }) => {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
   if (!session) {
     redirect("/login");
   }

@@ -1,12 +1,11 @@
-import { headers } from "next/headers";
-import { auth } from "../../../../utils/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/config/db";
 import { favorites } from "@/schema";
 import { and, eq } from "drizzle-orm";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function GET() {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session) {
     return NextResponse.json({ message: "Please authenticate" });
@@ -25,7 +24,7 @@ export async function GET() {
 export async function PATCH(request: NextRequest) {
   const { expeditionId }: { expeditionId: string } = await request.json();
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session) throw new Error("Session not found");
 

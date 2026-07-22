@@ -4,12 +4,11 @@ import NoHikeIdPage from "../components/NoHikeIdPage";
 import { getExpeditionDetails } from "@/server-actions/getExpeditionDetails";
 import SpecialRequest from "../components/SpecialRequest";
 import BackButton from "../components/BackButton";
-import { auth } from "../../../../../utils/auth";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/server-actions/getCurrentUser";
 import ProceedToPaymentComponent from "../components/ProceedToPaymentComponent";
 import { getCurrentUserBookings } from "@/server-actions/getCurrentUserBookings";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 const BookingPage = async ({
   params,
@@ -22,7 +21,7 @@ const BookingPage = async ({
     return <NoHikeIdPage />;
   }
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session) {
     const callbackUrl = encodeURIComponent(`/booking/${hikeId}`);
@@ -34,6 +33,8 @@ const BookingPage = async ({
 
   const expedition = await getExpeditionDetails(hikeId);
   const userBookings = await getCurrentUserBookings();
+
+  if (!userBookings) return;
 
   const isBooked = userBookings.some(
     (booking) => booking.booking.expeditionId === hikeId,

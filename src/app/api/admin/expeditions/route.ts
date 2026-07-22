@@ -1,12 +1,11 @@
-import { headers } from "next/headers";
-import { auth } from "../../../../../utils/auth";
 import { NextResponse } from "next/server";
 import { db } from "@/config/db";
 import { booking, expedition, guide, schedule, user } from "@/schema";
 import { eq, sql } from "drizzle-orm";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export async function GET() {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session || session.user.role !== "admin") {
     return NextResponse.json({ message: "Not Authorized" });

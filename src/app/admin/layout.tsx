@@ -2,9 +2,8 @@ import { Metadata } from "next";
 import React from "react";
 import AdminSidebar from "./components/AdminSidebar";
 import AdminNavbar from "./components/admin-nav/AdminNavbar";
-import { auth } from "../../../utils/auth";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getCurrentSession } from "@/server-actions/getCurrentSession";
 
 export const metadata: Metadata = {
   title: "admin-Trails and Memoirs",
@@ -15,7 +14,7 @@ const AdminLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getCurrentSession();
 
   if (!session || session?.user?.role !== "admin") {
     redirect("/");
