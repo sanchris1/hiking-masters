@@ -4,6 +4,17 @@ import * as t from "drizzle-orm/pg-core";
 
 export const UserRole = t.pgEnum("role", ["admin", "user"]);
 export const GenderEnum = t.pgEnum("gender", ["male", "female"]);
+export const PaymentEnum = t.pgEnum("paymentStatus", [
+  "pending",
+  "cancelled",
+  "paid",
+]);
+export const BookingStatus = t.pgEnum("bookingStatus", [
+  "pending",
+  "confirmed",
+  "completed",
+  "cancelled",
+]);
 
 export const user = pgTable("user", {
   id: t.text("id").primaryKey(),
@@ -190,6 +201,7 @@ export const booking = pgTable(
       .notNull()
       .references(() => expedition.id, { onDelete: "cascade" }),
     specialRequest: t.varchar("special_request").default(""),
+    status: BookingStatus("bookingStatus").default("pending"),
     createdAt: t
       .timestamp("createdAt", { withTimezone: true })
       .defaultNow()
@@ -206,6 +218,20 @@ export const booking = pgTable(
       .on(table.expeditionId, table.userProfileId),
   }),
 );
+
+export const payment = pgTable("payments", {
+  id: t.uuid("id").primaryKey().defaultRandom(),
+  bookingId: t
+    .uuid("bookingId")
+    .notNull()
+    .references(() => booking.id),
+  status: PaymentEnum("paymentStatus").default("pending"),
+  amountPaid: t.integer("amountPaid").notNull().default(0),
+  createdAt: t
+    .timestamp("createdAt", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+});
 
 export const favorites = pgTable(
   "favorites",

@@ -120,6 +120,27 @@
       "when": 1784654014275,
       "tag": "0016_tricky_frightful_four",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1784698703603,
+      "tag": "0017_bright_joystick",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1784698906069,
+      "tag": "0018_sharp_riptide",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1784699243990,
+      "tag": "0019_chunky_flatman",
+      "breakpoints": true
     }
   ]
 }
