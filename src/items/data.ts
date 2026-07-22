@@ -15,8 +15,8 @@ export const contactSections = [
     contacts: [
       {
         label: "Support",
-        value: "+254 704172680",
-        href: "tel:+254704172680",
+        value: "+254 91554969",
+        href: "tel:+254 91554969",
       },
       {
         label: "WhatsApp",
