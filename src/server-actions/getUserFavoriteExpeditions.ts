@@ -3,17 +3,37 @@ import { expedition, favorites } from "@/schema";
 import { eq } from "drizzle-orm";
 import { getCurrentSession } from "./getCurrentSession";
 
-export async function getUserFavoriteExpeditions() {
-  const session = await getCurrentSession();
-  if (!session) return null;
+export type FavoritesWithExpeditions = {
+  userId: string;
+  expeditionId: string;
+  expedition: {
+    id: string;
+    title: string;
+    image: string;
+    difficulty: string;
+    location: string;
+  };
+};
 
-  const fav = await db
-    .select()
-    .from(favorites)
-    .where(eq(favorites.userId, session.user.id))
-    .innerJoin(expedition, eq(favorites.expeditionId, expedition.id));
+export async function getUserFavoriteExpeditions(): Promise<
+  FavoritesWithExpeditions[]
+> {
+  try {
+    const session = await getCurrentSession();
+    if (!session) return [];
 
-  if (!fav) return { message: "Please make sure to have some favorites" };
+    const result = await db
+      .select()
+      .from(favorites)
+      .where(eq(favorites.userId, session.user.id))
+      .innerJoin(expedition, eq(favorites.expeditionId, expedition.id));
 
-  return { favorites: fav };
+    return result.map((row) => ({
+      ...row.favorites,
+      expedition: row.expedition,
+    }));
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }

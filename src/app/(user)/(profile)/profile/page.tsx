@@ -3,7 +3,6 @@ import UserProfileCard from "./components/UserProfileCard";
 import PersonalInformation from "./components/PersonalInformation";
 import NextExpedition from "./components/NextExpedition";
 import FavoriteExpeditions from "./components/FavoriteExpeditions";
-import { getUserNextExpedition } from "@/server-actions/getUserNextExpedition";
 import { getUserFavoriteExpeditions } from "@/server-actions/getUserFavoriteExpeditions";
 
 const UserProfilePage = async () => {
@@ -11,13 +10,7 @@ const UserProfilePage = async () => {
 
   if (!currentUser) return <p>User not found</p>;
 
-  const nextExpedition = await getUserNextExpedition();
-
-  if (!nextExpedition) return <p>Expedition not found</p>;
-
   const favorites = await getUserFavoriteExpeditions();
-
-  if (!favorites) throw new Error("Please provide favorites");
 
   return (
     <div className=" my-8 px-4 md:px-6 lg:px-8 py-8  max-w-screen">
@@ -26,7 +19,7 @@ const UserProfilePage = async () => {
         <UserProfileCard currentUser={currentUser} />
         <div className=" space-y-8 ">
           <PersonalInformation currentUser={currentUser} />
-          <NextExpedition nextExpedition={nextExpedition} />
+          <NextExpedition />
           <FavoriteExpeditions favorites={favorites} />
         </div>
       </div>

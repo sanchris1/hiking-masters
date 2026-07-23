@@ -1,23 +1,24 @@
 "use client";
 
-import { getUserFavoriteExpeditions } from "@/server-actions/getUserFavoriteExpeditions";
+import { FavoritesWithExpeditions } from "@/server-actions/getUserFavoriteExpeditions";
 import { ArrowRight } from "lucide-react";
 import FavoriteExpeditionCard from "./FavoriteExpeditionCard";
 import { useRouter } from "next/navigation";
 
-type CurrentUserFavorites = NonNullable<
-  Awaited<ReturnType<typeof getUserFavoriteExpeditions>>
->;
+type FavoriteExpeditionsProps = {
+  favorites?: FavoritesWithExpeditions[];
+};
 
-interface FavoriteExpeditionsProps {
-  favorites: CurrentUserFavorites;
-}
-
-const FavoriteExpeditions = ({ favorites }: FavoriteExpeditionsProps) => {
+const FavoriteExpeditions = ({ favorites = [] }: FavoriteExpeditionsProps) => {
   const router = useRouter();
 
-  if (!favorites) return <p>please like expeditions to have fav</p>;
-
+  if (favorites.length === 0) {
+    return (
+      <p className="text-muted">
+        Please like some expeditions to see them here.
+      </p>
+    );
+  }
   return (
     <div className="bg-surface-100 px-4 py-6 rounded-xl ">
       <div className="flex items-center justify-between">
@@ -32,11 +33,8 @@ const FavoriteExpeditions = ({ favorites }: FavoriteExpeditionsProps) => {
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
-        {favorites.favorites?.slice(0, 3).map((fav) => (
-          <FavoriteExpeditionCard
-            key={fav.expedition.id}
-            expedition={fav.expedition}
-          />
+        {favorites.slice(0, 3).map((fav) => (
+          <FavoriteExpeditionCard key={fav.expedition.id} expedition={fav} />
         ))}
       </div>
     </div>

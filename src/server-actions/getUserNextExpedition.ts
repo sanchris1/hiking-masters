@@ -23,5 +23,9 @@ export async function getUserNextExpedition() {
     .orderBy(asc(expedition.departureDate))
     .limit(1);
 
+  if (!nextExpedition) {
+    return;
+  }
+
   return { expedition: nextExpedition };
 }

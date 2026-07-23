@@ -201,7 +201,7 @@ export const booking = pgTable(
       .notNull()
       .references(() => expedition.id, { onDelete: "cascade" }),
     specialRequest: t.varchar("special_request").default(""),
-    status: BookingStatus("bookingStatus").default("pending"),
+    bookingStatus: BookingStatus("bookingStatus").default("pending"),
     createdAt: t
       .timestamp("createdAt", { withTimezone: true })
       .defaultNow()

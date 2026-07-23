@@ -3,19 +3,14 @@ import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdOutlineDepartureBoard } from "react-icons/md";
 
-type NextUserExpedition = NonNullable<
-  Awaited<ReturnType<typeof getUserNextExpedition>>
->;
-interface NextExpeditionPageProps {
-  nextExpedition: NextUserExpedition;
-}
+const NextExpedition = async () => {
+  const nextExpedition = await getUserNextExpedition();
 
-const NextExpedition = ({ nextExpedition }: NextExpeditionPageProps) => {
   if (!nextExpedition)
     return (
       <div>
         <h1 className="">No Expedition</h1>
-        <span className="">Please book with us t enjoy one</span>
+        <span className="">Please book with us and enjoy one</span>
       </div>
     );
 
