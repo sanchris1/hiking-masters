@@ -12,8 +12,6 @@ const ExploreDetailsPage = async ({
 
   const data = await getExpeditionDetails(exploreId);
 
-  console.log(data);
-
   if (!data || !data.guide) return <p className="">No details found</p>;
 
   return (
