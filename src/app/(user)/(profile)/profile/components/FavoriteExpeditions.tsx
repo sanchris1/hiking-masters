@@ -12,7 +12,7 @@ type FavoriteExpeditionsProps = {
 const FavoriteExpeditions = ({ favorites = [] }: FavoriteExpeditionsProps) => {
   const router = useRouter();
 
-  if (favorites.length === 0) {
+  if (favorites.length === 0 || !favorites) {
     return (
       <p className="text-muted">
         Please like some expeditions to see them here.

@@ -1,0 +1,1 @@
+ALTER TABLE "guide" DROP CONSTRAINT "guide_userId_unique";
